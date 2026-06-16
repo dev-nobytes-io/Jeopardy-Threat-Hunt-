@@ -45,9 +45,16 @@ body {
   border-bottom: 1px solid var(--board-accent);
 }
 
+.play-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 24px;
+}
+
 .play-button {
   display: inline-block;
-  margin-top: 24px;
   padding: 14px 28px;
   background: var(--gold);
   color: #1a1a1a;
@@ -181,33 +188,75 @@ table.board td {
   text-align: center;
 }
 
-.modal-category { color: var(--gold); font-weight: bold; text-transform: uppercase; }
-.modal-points { font-size: 1.5rem; margin: 8px 0 4px; }
-.modal-progress { font-size: 0.85rem; opacity: 0.75; margin-bottom: 16px; }
-.modal-clue { font-size: 1.2rem; margin-bottom: 20px; }
-.modal-answer { font-size: 1.1rem; color: var(--gold); margin: 12px 0; }
-.modal-level { font-size: 0.95rem; opacity: 0.85; margin-bottom: 12px; }
+.modal-wide {
+  max-width: 860px;
+  max-height: 88vh;
+  overflow-y: auto;
+  text-align: left;
+}
 
-.modal button {
-  margin: 6px;
-  padding: 10px 18px;
+.modal-category { color: var(--gold); font-weight: bold; text-transform: uppercase; }
+.modal-points { font-size: 1.3rem; margin: 8px 0 16px; }
+
+.modal-tasks {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-bottom: 20px;
+}
+
+.task-row {
+  background: var(--board-accent);
+  border-radius: 6px;
+  padding: 14px 16px;
+}
+
+.task-row.graded { opacity: 0.7; }
+
+.task-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.task-function { color: var(--gold); font-weight: bold; }
+.task-function .task-model { color: #cfcfcf; font-weight: normal; font-size: 0.75rem; }
+.task-points { font-weight: bold; }
+.task-status { font-size: 1.1rem; }
+
+.task-clue { margin-bottom: 10px; }
+.task-answer { color: var(--gold); margin: 8px 0; }
+.task-level { font-size: 0.85rem; opacity: 0.85; margin-bottom: 8px; }
+
+.task-grading:not([hidden]) {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-top: 8px;
+}
+
+.task-grading select {
+  padding: 6px;
+  border-radius: 4px;
+  border: none;
+}
+
+.modal button, .task-row button {
+  padding: 8px 14px;
   border-radius: 4px;
   border: none;
   cursor: pointer;
   font-weight: bold;
 }
 
-#reveal-btn { background: var(--gold); }
-#mark-correct-btn { background: var(--correct); color: white; }
-#mark-incorrect-btn { background: var(--incorrect); color: white; }
-.modal-close { background: #444; color: white; }
-
-.modal-grading select {
-  padding: 6px;
-  margin: 0 8px;
-  border-radius: 4px;
-  border: none;
-}
+.task-reveal-btn { background: var(--gold); }
+.task-correct-btn { background: var(--correct); color: white; }
+.task-incorrect-btn { background: var(--incorrect); color: white; }
+.modal-close { background: #444; color: white; margin-top: 6px; }
 
 .summary-panel {
   padding: 16px 24px 48px;
