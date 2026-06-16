@@ -1,11 +1,12 @@
-# Hunt Jeopardy
+# Hunt CTF
 
-A Jeopardy-style, browser-playable assessment of SOC maturity. Each game board
-maps **crown jewels** (PIR-driven assets) across the top and **maturity
-tiers** down the side. Selecting a cell walks the team through a task for
-**each of the seven SOC functions** in turn, and every task is graded against
-a real, named capability maturity model — answering correctly is evidence the
-SOC operates at that maturity level for that function.
+A Jeopardy-style CTF board (categories across, point values down — not the
+TV game show) used as a browser-playable assessment of SOC maturity. Each
+board maps **crown jewels** (PIR-driven assets) across the top and
+**maturity tiers** down the side. Selecting a cell walks the team through a
+task for **each of the seven SOC functions** in turn, and every task is
+graded against a real, named capability maturity model — answering correctly
+is evidence the SOC operates at that maturity level for that function.
 
 Play it live via GitHub Pages, or run it locally — no build step required.
 
