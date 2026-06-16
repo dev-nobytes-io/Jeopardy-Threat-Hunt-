@@ -82,10 +82,10 @@
             (sum, fid) => sum + (tasks[fid].correct ? subPoints : 0), 0
           );
           btn.classList.add("used");
-          btn.textContent = "✓ $" + earned;
+          btn.textContent = "✓ " + earned + " pts";
           btn.disabled = true;
         } else {
-          btn.textContent = "$" + points + (answeredCount > 0 ? " (" + answeredCount + "/" + total + ")" : "");
+          btn.textContent = points + " pts" + (answeredCount > 0 ? " (" + answeredCount + "/" + total + ")" : "");
           btn.addEventListener("click", () => openModal(cat.id, tier));
         }
         td.appendChild(btn);
@@ -130,7 +130,7 @@
 
     document.getElementById("modal-category").textContent =
       category.icon + " " + category.label + " — " + category.hunt_type + " (" + category.mitre + ")";
-    document.getElementById("modal-points").textContent = "$" + subPoints;
+    document.getElementById("modal-points").textContent = subPoints + " pts";
     document.getElementById("modal-progress").textContent =
       "Task " + (stepIdx + 1) + " of " + total + " — " + fn.label + " (" + fn.model + ")";
     document.getElementById("modal-clue").textContent = task.clue;
