@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hunt Jeopardy — Board</title>
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+  <header class="topbar">
+    <a href="index.html" class="back-link">&larr; Campaigns</a>
+    <h1 id="campaign-title">Loading…</h1>
+  </header>
+
+  <section class="teams-panel" id="teams-panel">
+    <div class="teams-controls">
+      <input type="text" id="new-team-name" placeholder="Team name">
+      <button id="add-team-btn">Add Team</button>
+    </div>
+    <div class="teams-scores" id="teams-scores"></div>
+  </section>
+
+  <main>
+    <table class="board" id="board-table">
+      <thead id="board-head"></thead>
+      <tbody id="board-body"></tbody>
+    </table>
+  </main>
+
+  <section class="summary-panel">
+    <button id="show-summary-btn">Show Maturity Summary</button>
+    <div id="summary-output"></div>
+  </section>
+
+  <div class="modal-backdrop" id="modal-backdrop">
+    <div class="modal">
+      <div class="modal-category" id="modal-category"></div>
+      <div class="modal-points" id="modal-points"></div>
+      <div class="modal-clue" id="modal-clue"></div>
+      <button id="reveal-btn">Reveal Answer</button>
+      <div class="modal-answer" id="modal-answer" hidden></div>
+      <div class="modal-level" id="modal-level" hidden></div>
+
+      <div class="modal-grading" id="modal-grading" hidden>
+        <label for="grading-team">Award points to:</label>
+        <select id="grading-team"></select>
+        <button id="mark-correct-btn">Correct</button>
+        <button id="mark-incorrect-btn">Incorrect / Skip</button>
+      </div>
+
+      <button class="modal-close" id="modal-close-btn">Close</button>
+    </div>
+  </div>
+
+  <script src="assets/js/board.js"></script>
+</body>
+</html>

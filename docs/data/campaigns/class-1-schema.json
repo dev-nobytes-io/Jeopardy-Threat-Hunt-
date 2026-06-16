@@ -1,0 +1,51 @@
+{
+  "id": "class-1-schema",
+  "title": "Class 1 — Schema",
+  "subtitle": "Scheduled Tasks (T1053) × Active Directory",
+  "mitre": "T1053",
+  "categories": ["cti", "threat_hunting", "detection_engineering", "engagement", "dfir", "incident_response", "security_engineering"],
+  "points": [200, 400, 600, 800, 1000],
+  "cells": [
+    { "category": "cti", "tier": 1, "clue": "This CTI deliverable compiles known adversary tradecraft for abusing scheduled tasks (T1053) into actor-specific playbooks.", "answer": "Threat actor playbooks leveraging scheduled tasks" },
+    { "category": "cti", "tier": 2, "clue": "This CTI deliverable fully maps the technique to its MITRE ATT&CK entry, including sub-techniques and procedure examples.", "answer": "MITRE ATT&CK T1053 full technique mapping" },
+    { "category": "cti", "tier": 3, "clue": "This CTI deliverable documents what normal scheduled task execution looks like, broken out by system role.", "answer": "Baseline scheduled task execution patterns by role/system" },
+    { "category": "cti", "tier": 4, "clue": "This CTI deliverable lists indicators of suspicious scheduling, such as off-hours execution by privileged accounts.", "answer": "Anomalous scheduling indicators (off-hours, privileged accounts)" },
+    { "category": "cti", "tier": 5, "clue": "This CTI deliverable draws on real intrusions to document how APT groups have historically abused scheduled tasks.", "answer": "Historical APT scheduled task abuse case studies" },
+
+    { "category": "threat_hunting", "tier": 1, "clue": "This hunt deliverable is a simple inventory of which scheduled tasks are approved per system or role — the minimum data needed to even start hunting.", "answer": "Approved scheduled task catalog per system/role" },
+    { "category": "threat_hunting", "tier": 2, "clue": "This hunt deliverable establishes normal vs. anomalous rates of new scheduled task creation.", "answer": "Task spawn velocity baselines" },
+    { "category": "threat_hunting", "tier": 3, "clue": "This hunt deliverable is a repeatable registry tracking scheduled task execution outside of business hours.", "answer": "Off-hours task execution registry" },
+    { "category": "threat_hunting", "tier": 4, "clue": "This hunt deliverable correlates which service accounts are allowed to create tasks, flagging deviations as a hypothesis-driven hunt.", "answer": "Service account task whitelist" },
+    { "category": "threat_hunting", "tier": 5, "clue": "This hunt deliverable documents refined, domain-specific anomaly thresholds — the leading-edge output of a mature hunt program.", "answer": "Anomaly threshold documentation per domain" },
+
+    { "category": "detection_engineering", "tier": 1, "clue": "This is the most basic detection artifact for this technique: a rule that fires on task creation or modification.", "answer": "Task creation and modification detection rules" },
+    { "category": "detection_engineering", "tier": 2, "clue": "This detection deliverable specifically alerts on off-hours execution by privileged accounts.", "answer": "Off-hours and privileged account execution alerts" },
+    { "category": "detection_engineering", "tier": 3, "clue": "This deliverable codifies analyst response steps so the detection's handling isn't tribal knowledge.", "answer": "Knowledge base articles for analyst response" },
+    { "category": "detection_engineering", "tier": 4, "clue": "This deliverable comes from a continuous feedback loop with operations, reducing noise from scheduled backups and maintenance windows.", "answer": "False positive tuning guide (scheduled backups, maintenance windows)" },
+    { "category": "detection_engineering", "tier": 5, "clue": "This deliverable is the optimized handoff point: clear criteria and a runbook for escalating a confirmed detection to incident response.", "answer": "Escalation criteria and runbook" },
+
+    { "category": "engagement", "tier": 1, "clue": "At this maturity level, no one has ever actually emulated scheduled-task persistence against this environment — it's theoretical only.", "answer": "Ad hoc / no emulation" },
+    { "category": "engagement", "tier": 2, "clue": "At this level, a single red-team exercise emulated T1053, but the findings never made it back to detection engineering.", "answer": "Isolated emulation exercise, no feedback loop" },
+    { "category": "engagement", "tier": 3, "clue": "At this level, purple team exercises use a documented adversary emulation plan for T1053 and validate it against existing detections.", "answer": "Structured purple team exercise with a documented emulation plan" },
+    { "category": "engagement", "tier": 4, "clue": "At this level, T1053 emulation runs on a recurring schedule and automatically scores detection coverage, routing gaps to detection engineering.", "answer": "Integrated, recurring emulation with automated detection scoring" },
+    { "category": "engagement", "tier": 5, "clue": "At this level, emulation of scheduled-task techniques runs continuously, with detection and CTI feeding back into the emulation plan itself.", "answer": "Continuous, optimized purple-team integration" },
+
+    { "category": "dfir", "tier": 1, "clue": "At this level, artifacts like Task Scheduler logs and Security Event ID 4698 are only collected after an incident is already suspected.", "answer": "Ad hoc, reactive artifact collection" },
+    { "category": "dfir", "tier": 2, "clue": "At this level, a documented list of scheduled-task-relevant artifacts exists, but collecting them still depends on which analyst is on shift.", "answer": "Documented artifact list, inconsistently executed" },
+    { "category": "dfir", "tier": 3, "clue": "At this level, retention windows and chain-of-custody steps for scheduled-task artifacts are defined before an incident ever happens.", "answer": "Defined forensic readiness procedures" },
+    { "category": "dfir", "tier": 4, "clue": "At this level, scheduled-task artifact collection is automated and its readiness is regularly tested against ISO/IEC 27043 process classes.", "answer": "Managed, automated, and tested forensic readiness" },
+    { "category": "dfir", "tier": 5, "clue": "At this level, forensic readiness for scheduled-task abuse is continuously measured, audited, and improved as part of the broader DFIR program.", "answer": "Optimized, continuously improved forensic readiness" },
+
+    { "category": "incident_response", "tier": 1, "clue": "At SIM3 Level 0, this is the state of the response process when a malicious scheduled task is confirmed: there isn't one.", "answer": "No defined IR process" },
+    { "category": "incident_response", "tier": 2, "clue": "At SIM3 Level 1, analysts informally know how to respond to a scheduled-task incident, but nothing is written down.", "answer": "Implicit, undocumented process" },
+    { "category": "incident_response", "tier": 3, "clue": "At SIM3 Level 2, a written runbook exists covering containment and eradication steps for scheduled-task persistence incidents.", "answer": "Explicit, written runbook" },
+    { "category": "incident_response", "tier": 4, "clue": "At SIM3 Level 3, the runbook includes automation hooks like auto-disabling the task or auto-isolating the host, and is kept current.", "answer": "Documented in detail, with automation" },
+    { "category": "incident_response", "tier": 5, "clue": "At SIM3 Level 4, the runbook and its automation are periodically audited against real incidents to confirm they still work.", "answer": "Audited and periodically reviewed" },
+
+    { "category": "security_engineering", "tier": 1, "clue": "At SAMM Level 0, this is the control restricting who can create scheduled tasks on domain-joined systems: none exists.", "answer": "No control" },
+    { "category": "security_engineering", "tier": 2, "clue": "At SAMM Level 1, scheduled task creation is restricted by local policy on some systems, but inconsistently applied.", "answer": "Ad hoc control" },
+    { "category": "security_engineering", "tier": 3, "clue": "At SAMM Level 2, an org-wide documented policy and GPO restrict task creation to approved service accounts, reviewed periodically.", "answer": "Structured, documented control" },
+    { "category": "security_engineering", "tier": 4, "clue": "At SAMM Level 3, the control is enforced via centrally managed policy-as-code, monitored for drift, and tied to an effectiveness metric.", "answer": "Optimized, measured control" },
+    { "category": "security_engineering", "tier": 5, "clue": "At this stretch level, the control is continuously reassessed and re-architected as adversary use of scheduled tasks evolves.", "answer": "Institutionalized, continuously reassessed architecture" }
+  ]
+}

@@ -1,0 +1,93 @@
+{
+  "cti": {
+    "label": "CTI",
+    "subtitle": "Informing the SOC through intel",
+    "model": "CTI-CMM",
+    "source": "https://cti-cmm.org/",
+    "tier_to_level": [
+      "CTI0 — Pre-Foundational",
+      "CTI1 — Foundational",
+      "CTI2 — Established",
+      "CTI3 — Advanced",
+      "CTI3 — Advanced (Stretch)"
+    ]
+  },
+  "threat_hunting": {
+    "label": "Threat Hunting",
+    "subtitle": "Hypothesis testing, baselining",
+    "model": "Hunting Maturity Model (HMM)",
+    "source": "https://www.sans.org/tools/hunting-maturity-model",
+    "tier_to_level": [
+      "HM0 — Initial",
+      "HM1 — Minimal",
+      "HM2 — Procedural",
+      "HM3 — Innovative",
+      "HM4 — Leading"
+    ]
+  },
+  "detection_engineering": {
+    "label": "Detection Engineering",
+    "subtitle": "Detection rule lifecycle",
+    "model": "Detection Engineering Maturity Matrix",
+    "source": "https://detectionengineering.io/",
+    "tier_to_level": [
+      "Ad Hoc",
+      "Repeatable",
+      "Detection-as-Code",
+      "Continuous Feedback",
+      "Optimized"
+    ]
+  },
+  "engagement": {
+    "label": "Engagement",
+    "subtitle": "SOC + cyber threat emulation",
+    "model": "SCYTHE Purple Team Maturity Model",
+    "source": "https://scythe.io/ptef",
+    "tier_to_level": [
+      "Level 1 — Ad Hoc",
+      "Level 2 — Isolated Exercises",
+      "Level 3 — Structured & Documented",
+      "Level 4 — Integrated & Recurring",
+      "Level 5 — Continuous / Optimized"
+    ]
+  },
+  "dfir": {
+    "label": "Digital Forensics",
+    "subtitle": "Artifact collection and analysis",
+    "model": "Digital Forensic Readiness & Maturity Model (ISO/IEC 27043)",
+    "source": "https://onlinelibrary.wiley.com/doi/full/10.1002/spy2.149",
+    "tier_to_level": [
+      "Level 1 — Ad Hoc / Reactive",
+      "Level 2 — Documented, Inconsistent",
+      "Level 3 — Defined Readiness Procedures",
+      "Level 4 — Managed & Tested",
+      "Level 5 — Optimized / Continuously Improved"
+    ]
+  },
+  "incident_response": {
+    "label": "Incident Response",
+    "subtitle": "Automation and processes",
+    "model": "SIM3 (Security Incident Management Maturity Model)",
+    "source": "https://opencsirt.org/csirt-maturity/sim3-and-references/",
+    "tier_to_level": [
+      "SIM3 Level 0 — None",
+      "SIM3 Level 1 — Implicit",
+      "SIM3 Level 2 — Explicit, Written",
+      "SIM3 Level 3 — Documented in Detail",
+      "SIM3 Level 4 — Audited / Reviewed"
+    ]
+  },
+  "security_engineering": {
+    "label": "Security Engineering",
+    "subtitle": "Implementing & reassessing controls",
+    "model": "OWASP SAMM v2",
+    "source": "https://owaspsamm.org/guidance/quick-start-guide/",
+    "tier_to_level": [
+      "SAMM Level 0 — None",
+      "SAMM Level 1 — Ad Hoc",
+      "SAMM Level 2 — Structured",
+      "SAMM Level 3 — Optimized",
+      "SAMM Level 3+ — Institutionalized"
+    ]
+  }
+}

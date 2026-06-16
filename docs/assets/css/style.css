@@ -1,0 +1,235 @@
+:root {
+  --board-bg: #0a1140;
+  --board-accent: #1b2a6b;
+  --gold: #d4af37;
+  --text: #f4f4f4;
+  --correct: #1b7a3d;
+  --incorrect: #8a1f1f;
+  --used: #06092a;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: "Segoe UI", Arial, sans-serif;
+  background: var(--used);
+  color: var(--text);
+}
+
+.landing {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 48px 24px;
+  text-align: center;
+}
+
+.landing h1 {
+  color: var(--gold);
+  font-size: 2.5rem;
+  margin-bottom: 0;
+}
+
+.tagline { opacity: 0.85; }
+
+.function-list {
+  list-style: none;
+  padding: 0;
+  text-align: left;
+  display: inline-block;
+  margin: 24px 0;
+}
+
+.function-list li {
+  padding: 6px 0;
+  border-bottom: 1px solid var(--board-accent);
+}
+
+.play-button {
+  display: inline-block;
+  margin-top: 24px;
+  padding: 14px 28px;
+  background: var(--gold);
+  color: #1a1a1a;
+  font-weight: bold;
+  text-decoration: none;
+  border-radius: 6px;
+}
+
+.topbar {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 16px 24px;
+  background: var(--board-bg);
+}
+
+.back-link { color: var(--gold); text-decoration: none; }
+
+#campaign-title { margin: 0; color: var(--gold); font-size: 1.2rem; }
+
+.teams-panel {
+  padding: 12px 24px;
+  background: var(--board-accent);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  align-items: center;
+}
+
+.teams-controls { display: flex; gap: 8px; }
+
+.teams-controls input {
+  padding: 6px 8px;
+  border-radius: 4px;
+  border: none;
+}
+
+.teams-controls button {
+  padding: 6px 12px;
+  border-radius: 4px;
+  border: none;
+  background: var(--gold);
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.teams-scores {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.team-chip {
+  background: var(--board-bg);
+  padding: 6px 12px;
+  border-radius: 4px;
+  border: 1px solid var(--gold);
+}
+
+main {
+  overflow-x: auto;
+  padding: 16px;
+}
+
+table.board {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 6px;
+  table-layout: fixed;
+}
+
+table.board th {
+  background: var(--board-bg);
+  color: var(--gold);
+  padding: 10px 6px;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  border-radius: 4px;
+}
+
+table.board th .model-name {
+  display: block;
+  font-size: 0.65rem;
+  color: #cfcfcf;
+  text-transform: none;
+  font-weight: normal;
+}
+
+table.board td {
+  padding: 0;
+}
+
+.cell-btn {
+  width: 100%;
+  height: 64px;
+  background: var(--board-accent);
+  color: var(--gold);
+  border: none;
+  border-radius: 4px;
+  font-size: 1.3rem;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.cell-btn:hover { filter: brightness(1.2); }
+
+.cell-btn.used {
+  background: var(--used);
+  color: #555;
+  cursor: default;
+}
+
+.modal-backdrop {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.8);
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-backdrop.open { display: flex; }
+
+.modal {
+  background: var(--board-bg);
+  border: 2px solid var(--gold);
+  border-radius: 8px;
+  padding: 32px;
+  max-width: 560px;
+  width: 90%;
+  text-align: center;
+}
+
+.modal-category { color: var(--gold); font-weight: bold; text-transform: uppercase; }
+.modal-points { font-size: 1.5rem; margin: 8px 0 16px; }
+.modal-clue { font-size: 1.2rem; margin-bottom: 20px; }
+.modal-answer { font-size: 1.1rem; color: var(--gold); margin: 12px 0; }
+.modal-level { font-size: 0.95rem; opacity: 0.85; margin-bottom: 12px; }
+
+.modal button {
+  margin: 6px;
+  padding: 10px 18px;
+  border-radius: 4px;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+#reveal-btn { background: var(--gold); }
+#mark-correct-btn { background: var(--correct); color: white; }
+#mark-incorrect-btn { background: var(--incorrect); color: white; }
+.modal-close { background: #444; color: white; }
+
+.modal-grading select {
+  padding: 6px;
+  margin: 0 8px;
+  border-radius: 4px;
+  border: none;
+}
+
+.summary-panel {
+  padding: 16px 24px 48px;
+}
+
+#show-summary-btn {
+  padding: 10px 18px;
+  background: var(--gold);
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+#summary-output {
+  margin-top: 16px;
+}
+
+.summary-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 12px;
+  background: var(--board-accent);
+  border-radius: 4px;
+  margin-bottom: 6px;
+}
