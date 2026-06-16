@@ -1,0 +1,737 @@
+{
+  "id": "class-2-schema",
+  "title": "Class 2 — Schema",
+  "subtitle": "Crown jewels × maturity tiers — every cell exercises all 7 SOC functions",
+  "functions": [
+    "cti",
+    "threat_hunting",
+    "detection_engineering",
+    "engagement",
+    "dfir",
+    "incident_response",
+    "security_engineering"
+  ],
+  "points": [
+    250,
+    500,
+    750,
+    1000,
+    1250
+  ],
+  "categories": [
+    {
+      "id": "active_directory",
+      "label": "Active Directory",
+      "icon": "🔐",
+      "multiplier": 3,
+      "mitre": "T1053",
+      "hunt_type": "Scheduled Tasks"
+    },
+    {
+      "id": "secrets_identity",
+      "label": "Secrets/Identity",
+      "icon": "🗝️",
+      "multiplier": 2,
+      "mitre": "T1135",
+      "hunt_type": "Net Share Enum"
+    },
+    {
+      "id": "infrastructure",
+      "label": "Infrastructure",
+      "icon": "🖥️",
+      "multiplier": 2,
+      "mitre": "T1059",
+      "hunt_type": "Process Spawning Velocity"
+    },
+    {
+      "id": "applications",
+      "label": "Applications",
+      "icon": "📱",
+      "multiplier": 1,
+      "mitre": "T1074",
+      "hunt_type": "Data Staging"
+    }
+  ],
+  "cells": [
+    {
+      "category": "active_directory",
+      "tier": 1,
+      "tasks": {
+        "cti": {
+          "clue": "This CTI deliverable compiles known adversary tradecraft for Scheduled Tasks (T1053) into actor-specific playbooks.",
+          "answer": "Threat actor playbooks leveraging scheduled tasks"
+        },
+        "threat_hunting": {
+          "clue": "This hunt deliverable is the minimum registry needed to start hunting scheduled task abuse.",
+          "answer": "Approved scheduled task catalog per system/role"
+        },
+        "detection_engineering": {
+          "clue": "This is the most basic detection artifact for this technique.",
+          "answer": "Task creation and modification detection rules"
+        },
+        "engagement": {
+          "clue": "At this maturity level, no one has ever actually emulated Scheduled Tasks (T1053) against this environment — it's theoretical only.",
+          "answer": "Ad hoc / no emulation"
+        },
+        "dfir": {
+          "clue": "At this level, artifacts like Windows Event ID 4698/4702 (scheduled task creation/modification) and cron/crontab change logs are only collected after an incident is already suspected.",
+          "answer": "Ad hoc, reactive artifact collection"
+        },
+        "incident_response": {
+          "clue": "At SIM3 Level 0, this is the state of the response process when confirmed scheduled task abuse is detected: there isn't one.",
+          "answer": "No defined IR process"
+        },
+        "security_engineering": {
+          "clue": "At SAMM Level 0, this is the control restricting who can create or modify scheduled tasks domain-wide: none exists.",
+          "answer": "No control"
+        }
+      }
+    },
+    {
+      "category": "active_directory",
+      "tier": 2,
+      "tasks": {
+        "cti": {
+          "clue": "This CTI deliverable fully maps the technique to its MITRE ATT&CK entry, including sub-techniques and procedure examples.",
+          "answer": "MITRE ATT&CK T1053 full technique mapping"
+        },
+        "threat_hunting": {
+          "clue": "This hunt deliverable tracks deviations from baseline related to scheduled task abuse.",
+          "answer": "Task spawn velocity baselines (normal vs. anomalous)"
+        },
+        "detection_engineering": {
+          "clue": "This detection deliverable specifically alerts on the technique's most identifiable behavior.",
+          "answer": "Off-hours and privileged account execution alerts"
+        },
+        "engagement": {
+          "clue": "At this level, a single red-team exercise emulated T1053 scheduled tasks, but the findings never made it back to detection engineering.",
+          "answer": "Isolated emulation exercise, no feedback loop"
+        },
+        "dfir": {
+          "clue": "At this level, a documented list of scheduled task abuse-relevant artifacts exists, but collecting them still depends on which analyst is on shift.",
+          "answer": "Documented artifact list, inconsistently executed"
+        },
+        "incident_response": {
+          "clue": "At SIM3 Level 1, analysts informally know how to respond to confirmed scheduled task abuse, but nothing is written down.",
+          "answer": "Implicit, undocumented process"
+        },
+        "security_engineering": {
+          "clue": "At SAMM Level 1, scheduled task creation is restricted by local policy on some systems, but inconsistently applied.",
+          "answer": "Ad hoc control"
+        }
+      }
+    },
+    {
+      "category": "active_directory",
+      "tier": 3,
+      "tasks": {
+        "cti": {
+          "clue": "This CTI deliverable documents the baseline needed before any scheduled task abuse hunt can start.",
+          "answer": "Baseline scheduled task execution patterns by role/system"
+        },
+        "threat_hunting": {
+          "clue": "This hunt deliverable is a repeatable catalog used once the hunt program matures.",
+          "answer": "Off-hours task execution registry"
+        },
+        "detection_engineering": {
+          "clue": "This deliverable codifies analyst response steps so handling this alert isn't tribal knowledge.",
+          "answer": "Knowledge base articles for analyst response"
+        },
+        "engagement": {
+          "clue": "At this level, purple team exercises use a documented adversary emulation plan for T1053 and validate it against existing detections.",
+          "answer": "Structured purple team exercise with a documented emulation plan"
+        },
+        "dfir": {
+          "clue": "At this level, retention windows and chain-of-custody steps for scheduled task abuse artifacts are defined before an incident ever happens.",
+          "answer": "Defined forensic readiness procedures"
+        },
+        "incident_response": {
+          "clue": "At SIM3 Level 2, a written runbook exists covering containment and eradication steps for scheduled task abuse incidents.",
+          "answer": "Explicit, written runbook"
+        },
+        "security_engineering": {
+          "clue": "At SAMM Level 2, an org-wide documented policy and a task-creation allowlist and change-approval process restrict scheduled task creation to approved accounts, reviewed periodically.",
+          "answer": "Structured, documented control"
+        }
+      }
+    },
+    {
+      "category": "active_directory",
+      "tier": 4,
+      "tasks": {
+        "cti": {
+          "clue": "This CTI deliverable lists known indicators associated with scheduled task abuse.",
+          "answer": "Anomalous scheduling indicators (off-hours, privileged accounts)"
+        },
+        "threat_hunting": {
+          "clue": "This hunt deliverable correlates anomalies into a hypothesis-driven log as the hunt program matures further.",
+          "answer": "Service account task whitelist"
+        },
+        "detection_engineering": {
+          "clue": "This deliverable comes from a continuous feedback loop with the owning team, reducing false positives.",
+          "answer": "False positive tuning guide (scheduled backups, maintenance windows)"
+        },
+        "engagement": {
+          "clue": "At this level, T1053 emulation runs on a recurring schedule and automatically scores detection coverage, routing gaps to detection engineering.",
+          "answer": "Integrated, recurring emulation with automated detection scoring"
+        },
+        "dfir": {
+          "clue": "At this level, scheduled task abuse artifact collection is automated and its readiness is regularly tested against ISO/IEC 27043 process classes.",
+          "answer": "Managed, automated, and tested forensic readiness"
+        },
+        "incident_response": {
+          "clue": "At SIM3 Level 3, the runbook includes automation hooks like auto-disabling the task and quarantining its binary, and is kept current.",
+          "answer": "Documented in detail, with automation"
+        },
+        "security_engineering": {
+          "clue": "At SAMM Level 3, the control is enforced via centrally managed policy-as-code (task creation GPO + EDR execution policy), monitored for drift, and tied to an effectiveness metric.",
+          "answer": "Optimized, measured control"
+        }
+      }
+    },
+    {
+      "category": "active_directory",
+      "tier": 5,
+      "tasks": {
+        "cti": {
+          "clue": "This CTI deliverable draws on real intrusions to document how APT groups have carried out scheduled task abuse.",
+          "answer": "Historical APT scheduled task abuse case studies"
+        },
+        "threat_hunting": {
+          "clue": "This hunt deliverable is the leading-edge output of a mature hunt program for scheduled task abuse.",
+          "answer": "Anomaly threshold documentation per domain"
+        },
+        "detection_engineering": {
+          "clue": "This deliverable is the optimized handoff point to incident response.",
+          "answer": "Escalation criteria and runbook"
+        },
+        "engagement": {
+          "clue": "At this level, T1053 emulation runs continuously, with detection and CTI feeding back into the emulation plan itself.",
+          "answer": "Continuous, optimized purple-team integration"
+        },
+        "dfir": {
+          "clue": "At this level, forensic readiness for scheduled task abuse is continuously measured, audited, and improved as part of the broader DFIR program.",
+          "answer": "Optimized, continuously improved forensic readiness"
+        },
+        "incident_response": {
+          "clue": "At SIM3 Level 4, the runbook and its automation are periodically audited against real scheduled task abuse incidents to confirm they still work.",
+          "answer": "Audited and periodically reviewed"
+        },
+        "security_engineering": {
+          "clue": "At this stretch level, the control is continuously reassessed and re-architected as adversary scheduled task abuse tradecraft evolves.",
+          "answer": "Institutionalized, continuously reassessed architecture"
+        }
+      }
+    },
+    {
+      "category": "secrets_identity",
+      "tier": 1,
+      "tasks": {
+        "cti": {
+          "clue": "This CTI deliverable compiles known adversary tradecraft for Net Share Enum (T1135) into actor-specific playbooks.",
+          "answer": "Network share enumeration and recon playbooks"
+        },
+        "threat_hunting": {
+          "clue": "This hunt deliverable is the minimum registry needed to start hunting network share enumeration.",
+          "answer": "Share access and mount activity registry"
+        },
+        "detection_engineering": {
+          "clue": "This is the most basic detection artifact for this technique.",
+          "answer": "Share enumeration and rapid mount detection rules"
+        },
+        "engagement": {
+          "clue": "At this maturity level, no one has ever actually emulated Net Share Enum (T1135) against this environment — it's theoretical only.",
+          "answer": "Ad hoc / no emulation"
+        },
+        "dfir": {
+          "clue": "At this level, artifacts like Windows Security Event ID 5140/5145 (network share access) logs are only collected after an incident is already suspected.",
+          "answer": "Ad hoc, reactive artifact collection"
+        },
+        "incident_response": {
+          "clue": "At SIM3 Level 0, this is the state of the response process when confirmed network share enumeration is detected: there isn't one.",
+          "answer": "No defined IR process"
+        },
+        "security_engineering": {
+          "clue": "At SAMM Level 0, this is the control restricting who can enumerate or mount network shares holding sensitive credentials: none exists.",
+          "answer": "No control"
+        }
+      }
+    },
+    {
+      "category": "secrets_identity",
+      "tier": 2,
+      "tasks": {
+        "cti": {
+          "clue": "This CTI deliverable fully maps the technique to its MITRE ATT&CK entry, including sub-techniques and procedure examples.",
+          "answer": "MITRE ATT&CK T1135 full technique mapping"
+        },
+        "threat_hunting": {
+          "clue": "This hunt deliverable tracks deviations from baseline related to network share enumeration.",
+          "answer": "Admin share catalog with expected access patterns"
+        },
+        "detection_engineering": {
+          "clue": "This detection deliverable specifically alerts on the technique's most identifiable behavior.",
+          "answer": "Mass access and hidden share creation alerts"
+        },
+        "engagement": {
+          "clue": "At this level, a single red-team exercise emulated T1135 net share enum, but the findings never made it back to detection engineering.",
+          "answer": "Isolated emulation exercise, no feedback loop"
+        },
+        "dfir": {
+          "clue": "At this level, a documented list of network share enumeration-relevant artifacts exists, but collecting them still depends on which analyst is on shift.",
+          "answer": "Documented artifact list, inconsistently executed"
+        },
+        "incident_response": {
+          "clue": "At SIM3 Level 1, analysts informally know how to respond to confirmed network share enumeration, but nothing is written down.",
+          "answer": "Implicit, undocumented process"
+        },
+        "security_engineering": {
+          "clue": "At SAMM Level 1, share enumeration is restricted by local policy on some systems, but inconsistently applied.",
+          "answer": "Ad hoc control"
+        }
+      }
+    },
+    {
+      "category": "secrets_identity",
+      "tier": 3,
+      "tasks": {
+        "cti": {
+          "clue": "This CTI deliverable documents the baseline needed before any network share enumeration hunt can start.",
+          "answer": "Normal share access and mount baselines"
+        },
+        "threat_hunting": {
+          "clue": "This hunt deliverable is a repeatable catalog used once the hunt program matures.",
+          "answer": "Hidden share discovery and creation log"
+        },
+        "detection_engineering": {
+          "clue": "This deliverable codifies analyst response steps so handling this alert isn't tribal knowledge.",
+          "answer": "Knowledge base articles for analyst response"
+        },
+        "engagement": {
+          "clue": "At this level, purple team exercises use a documented adversary emulation plan for T1135 and validate it against existing detections.",
+          "answer": "Structured purple team exercise with a documented emulation plan"
+        },
+        "dfir": {
+          "clue": "At this level, retention windows and chain-of-custody steps for network share enumeration artifacts are defined before an incident ever happens.",
+          "answer": "Defined forensic readiness procedures"
+        },
+        "incident_response": {
+          "clue": "At SIM3 Level 2, a written runbook exists covering containment and eradication steps for network share enumeration incidents.",
+          "answer": "Explicit, written runbook"
+        },
+        "security_engineering": {
+          "clue": "At SAMM Level 2, an org-wide documented policy and a share ACL review process and least-privilege access model restrict share enumeration to approved accounts, reviewed periodically.",
+          "answer": "Structured, documented control"
+        }
+      }
+    },
+    {
+      "category": "secrets_identity",
+      "tier": 4,
+      "tasks": {
+        "cti": {
+          "clue": "This CTI deliverable lists known indicators associated with network share enumeration.",
+          "answer": "Hidden share and admin share discovery indicators"
+        },
+        "threat_hunting": {
+          "clue": "This hunt deliverable correlates anomalies into a hypothesis-driven log as the hunt program matures further.",
+          "answer": "Enumeration tool signature and usage log"
+        },
+        "detection_engineering": {
+          "clue": "This deliverable comes from a continuous feedback loop with the owning team, reducing false positives.",
+          "answer": "Authorized IT admin enumeration FP tuning guide"
+        },
+        "engagement": {
+          "clue": "At this level, T1135 emulation runs on a recurring schedule and automatically scores detection coverage, routing gaps to detection engineering.",
+          "answer": "Integrated, recurring emulation with automated detection scoring"
+        },
+        "dfir": {
+          "clue": "At this level, network share enumeration artifact collection is automated and its readiness is regularly tested against ISO/IEC 27043 process classes.",
+          "answer": "Managed, automated, and tested forensic readiness"
+        },
+        "incident_response": {
+          "clue": "At SIM3 Level 3, the runbook includes automation hooks like auto-disabling the offending account's share access, and is kept current.",
+          "answer": "Documented in detail, with automation"
+        },
+        "security_engineering": {
+          "clue": "At SAMM Level 3, the control is enforced via centrally managed policy-as-code (share ACL-as-code with periodic access reviews), monitored for drift, and tied to an effectiveness metric.",
+          "answer": "Optimized, measured control"
+        }
+      }
+    },
+    {
+      "category": "secrets_identity",
+      "tier": 5,
+      "tasks": {
+        "cti": {
+          "clue": "This CTI deliverable draws on real intrusions to document how APT groups have carried out network share enumeration.",
+          "answer": "APT network recon and share enumeration case studies"
+        },
+        "threat_hunting": {
+          "clue": "This hunt deliverable is the leading-edge output of a mature hunt program for network share enumeration.",
+          "answer": "Mass access and rapid enumeration anomaly catalog"
+        },
+        "detection_engineering": {
+          "clue": "This deliverable is the optimized handoff point to incident response.",
+          "answer": "Escalation criteria and runbook"
+        },
+        "engagement": {
+          "clue": "At this level, T1135 emulation runs continuously, with detection and CTI feeding back into the emulation plan itself.",
+          "answer": "Continuous, optimized purple-team integration"
+        },
+        "dfir": {
+          "clue": "At this level, forensic readiness for network share enumeration is continuously measured, audited, and improved as part of the broader DFIR program.",
+          "answer": "Optimized, continuously improved forensic readiness"
+        },
+        "incident_response": {
+          "clue": "At SIM3 Level 4, the runbook and its automation are periodically audited against real network share enumeration incidents to confirm they still work.",
+          "answer": "Audited and periodically reviewed"
+        },
+        "security_engineering": {
+          "clue": "At this stretch level, the control is continuously reassessed and re-architected as adversary network share enumeration tradecraft evolves.",
+          "answer": "Institutionalized, continuously reassessed architecture"
+        }
+      }
+    },
+    {
+      "category": "infrastructure",
+      "tier": 1,
+      "tasks": {
+        "cti": {
+          "clue": "This CTI deliverable compiles known adversary tradecraft for Process Spawning Velocity (T1059) into actor-specific playbooks.",
+          "answer": "Process execution chain threat models per adversary group"
+        },
+        "threat_hunting": {
+          "clue": "This hunt deliverable is the minimum registry needed to start hunting process spawning anomalies.",
+          "answer": "Parent-child process relationship matrix"
+        },
+        "detection_engineering": {
+          "clue": "This is the most basic detection artifact for this technique.",
+          "answer": "Process creation and chain detection rules"
+        },
+        "engagement": {
+          "clue": "At this maturity level, no one has ever actually emulated Process Spawning Velocity (T1059) against this environment — it's theoretical only.",
+          "answer": "Ad hoc / no emulation"
+        },
+        "dfir": {
+          "clue": "At this level, artifacts like Sysmon Event ID 1 process creation logs and parent-child process trees are only collected after an incident is already suspected.",
+          "answer": "Ad hoc, reactive artifact collection"
+        },
+        "incident_response": {
+          "clue": "At SIM3 Level 0, this is the state of the response process when confirmed process spawning anomalies is detected: there isn't one.",
+          "answer": "No defined IR process"
+        },
+        "security_engineering": {
+          "clue": "At SAMM Level 0, this is the control restricting which processes and interpreters can be spawned on infrastructure hosts: none exists.",
+          "answer": "No control"
+        }
+      }
+    },
+    {
+      "category": "infrastructure",
+      "tier": 2,
+      "tasks": {
+        "cti": {
+          "clue": "This CTI deliverable fully maps the technique to its MITRE ATT&CK entry, including sub-techniques and procedure examples.",
+          "answer": "MITRE ATT&CK T1059 full technique mapping"
+        },
+        "threat_hunting": {
+          "clue": "This hunt deliverable tracks deviations from baseline related to process spawning anomalies.",
+          "answer": "Spawn rate anomaly registry per endpoint type"
+        },
+        "detection_engineering": {
+          "clue": "This detection deliverable specifically alerts on the technique's most identifiable behavior.",
+          "answer": "Velocity anomaly and LOLBin execution alerts"
+        },
+        "engagement": {
+          "clue": "At this level, a single red-team exercise emulated T1059 process spawning velocity, but the findings never made it back to detection engineering.",
+          "answer": "Isolated emulation exercise, no feedback loop"
+        },
+        "dfir": {
+          "clue": "At this level, a documented list of process spawning anomalies-relevant artifacts exists, but collecting them still depends on which analyst is on shift.",
+          "answer": "Documented artifact list, inconsistently executed"
+        },
+        "incident_response": {
+          "clue": "At SIM3 Level 1, analysts informally know how to respond to confirmed process spawning anomalies, but nothing is written down.",
+          "answer": "Implicit, undocumented process"
+        },
+        "security_engineering": {
+          "clue": "At SAMM Level 1, process/interpreter execution is restricted by local policy on some systems, but inconsistently applied.",
+          "answer": "Ad hoc control"
+        }
+      }
+    },
+    {
+      "category": "infrastructure",
+      "tier": 3,
+      "tasks": {
+        "cti": {
+          "clue": "This CTI deliverable documents the baseline needed before any process spawning anomalies hunt can start.",
+          "answer": "Normal process spawn rate baselines per system role"
+        },
+        "threat_hunting": {
+          "clue": "This hunt deliverable is a repeatable catalog used once the hunt program matures.",
+          "answer": "LOLBin usage catalog (expected vs. anomalous)"
+        },
+        "detection_engineering": {
+          "clue": "This deliverable codifies analyst response steps so handling this alert isn't tribal knowledge.",
+          "answer": "Knowledge base articles for analyst response"
+        },
+        "engagement": {
+          "clue": "At this level, purple team exercises use a documented adversary emulation plan for T1059 and validate it against existing detections.",
+          "answer": "Structured purple team exercise with a documented emulation plan"
+        },
+        "dfir": {
+          "clue": "At this level, retention windows and chain-of-custody steps for process spawning anomalies artifacts are defined before an incident ever happens.",
+          "answer": "Defined forensic readiness procedures"
+        },
+        "incident_response": {
+          "clue": "At SIM3 Level 2, a written runbook exists covering containment and eradication steps for process spawning anomalies incidents.",
+          "answer": "Explicit, written runbook"
+        },
+        "security_engineering": {
+          "clue": "At SAMM Level 2, an org-wide documented policy and an application control / execution allowlist policy restrict process/interpreter execution to approved accounts, reviewed periodically.",
+          "answer": "Structured, documented control"
+        }
+      }
+    },
+    {
+      "category": "infrastructure",
+      "tier": 4,
+      "tasks": {
+        "cti": {
+          "clue": "This CTI deliverable lists known indicators associated with process spawning anomalies.",
+          "answer": "LOLBin (Living-off-the-Land Binary) abuse indicators"
+        },
+        "threat_hunting": {
+          "clue": "This hunt deliverable correlates anomalies into a hypothesis-driven log as the hunt program matures further.",
+          "answer": "Unusual interpreter and shell invocation list"
+        },
+        "detection_engineering": {
+          "clue": "This deliverable comes from a continuous feedback loop with the owning team, reducing false positives.",
+          "answer": "Developer and build pipeline FP tuning guide"
+        },
+        "engagement": {
+          "clue": "At this level, T1059 emulation runs on a recurring schedule and automatically scores detection coverage, routing gaps to detection engineering.",
+          "answer": "Integrated, recurring emulation with automated detection scoring"
+        },
+        "dfir": {
+          "clue": "At this level, process spawning anomalies artifact collection is automated and its readiness is regularly tested against ISO/IEC 27043 process classes.",
+          "answer": "Managed, automated, and tested forensic readiness"
+        },
+        "incident_response": {
+          "clue": "At SIM3 Level 3, the runbook includes automation hooks like auto-killing the anomalous process tree, and is kept current.",
+          "answer": "Documented in detail, with automation"
+        },
+        "security_engineering": {
+          "clue": "At SAMM Level 3, the control is enforced via centrally managed policy-as-code (application control / EDR execution policy), monitored for drift, and tied to an effectiveness metric.",
+          "answer": "Optimized, measured control"
+        }
+      }
+    },
+    {
+      "category": "infrastructure",
+      "tier": 5,
+      "tasks": {
+        "cti": {
+          "clue": "This CTI deliverable draws on real intrusions to document how APT groups have carried out process spawning anomalies.",
+          "answer": "APT process spawning velocity case studies"
+        },
+        "threat_hunting": {
+          "clue": "This hunt deliverable is the leading-edge output of a mature hunt program for process spawning anomalies.",
+          "answer": "Credential access chain pattern documentation"
+        },
+        "detection_engineering": {
+          "clue": "This deliverable is the optimized handoff point to incident response.",
+          "answer": "Escalation criteria and runbook"
+        },
+        "engagement": {
+          "clue": "At this level, T1059 emulation runs continuously, with detection and CTI feeding back into the emulation plan itself.",
+          "answer": "Continuous, optimized purple-team integration"
+        },
+        "dfir": {
+          "clue": "At this level, forensic readiness for process spawning anomalies is continuously measured, audited, and improved as part of the broader DFIR program.",
+          "answer": "Optimized, continuously improved forensic readiness"
+        },
+        "incident_response": {
+          "clue": "At SIM3 Level 4, the runbook and its automation are periodically audited against real process spawning anomalies incidents to confirm they still work.",
+          "answer": "Audited and periodically reviewed"
+        },
+        "security_engineering": {
+          "clue": "At this stretch level, the control is continuously reassessed and re-architected as adversary process spawning anomalies tradecraft evolves.",
+          "answer": "Institutionalized, continuously reassessed architecture"
+        }
+      }
+    },
+    {
+      "category": "applications",
+      "tier": 1,
+      "tasks": {
+        "cti": {
+          "clue": "This CTI deliverable compiles known adversary tradecraft for Data Staging (T1074) into actor-specific playbooks.",
+          "answer": "Data exfiltration staging playbooks per threat actor"
+        },
+        "threat_hunting": {
+          "clue": "This hunt deliverable is the minimum registry needed to start hunting data staging and pre-exfiltration.",
+          "answer": "Large file movement and transfer registry"
+        },
+        "detection_engineering": {
+          "clue": "This is the most basic detection artifact for this technique.",
+          "answer": "Data staging and bulk transfer detection rules"
+        },
+        "engagement": {
+          "clue": "At this maturity level, no one has ever actually emulated Data Staging (T1074) against this environment — it's theoretical only.",
+          "answer": "Ad hoc / no emulation"
+        },
+        "dfir": {
+          "clue": "At this level, artifacts like DLP/proxy egress logs and compression/archive utility execution records are only collected after an incident is already suspected.",
+          "answer": "Ad hoc, reactive artifact collection"
+        },
+        "incident_response": {
+          "clue": "At SIM3 Level 0, this is the state of the response process when confirmed data staging and pre-exfiltration is detected: there isn't one.",
+          "answer": "No defined IR process"
+        },
+        "security_engineering": {
+          "clue": "At SAMM Level 0, this is the control restricting how much data application processes can move to external or removable destinations: none exists.",
+          "answer": "No control"
+        }
+      }
+    },
+    {
+      "category": "applications",
+      "tier": 2,
+      "tasks": {
+        "cti": {
+          "clue": "This CTI deliverable fully maps the technique to its MITRE ATT&CK entry, including sub-techniques and procedure examples.",
+          "answer": "MITRE ATT&CK T1074 full technique mapping"
+        },
+        "threat_hunting": {
+          "clue": "This hunt deliverable tracks deviations from baseline related to data staging and pre-exfiltration.",
+          "answer": "Unusual destination and upload location catalog"
+        },
+        "detection_engineering": {
+          "clue": "This detection deliverable specifically alerts on the technique's most identifiable behavior.",
+          "answer": "Volume threshold and unusual destination alerts"
+        },
+        "engagement": {
+          "clue": "At this level, a single red-team exercise emulated T1074 data staging, but the findings never made it back to detection engineering.",
+          "answer": "Isolated emulation exercise, no feedback loop"
+        },
+        "dfir": {
+          "clue": "At this level, a documented list of data staging and pre-exfiltration-relevant artifacts exists, but collecting them still depends on which analyst is on shift.",
+          "answer": "Documented artifact list, inconsistently executed"
+        },
+        "incident_response": {
+          "clue": "At SIM3 Level 1, analysts informally know how to respond to confirmed data staging and pre-exfiltration, but nothing is written down.",
+          "answer": "Implicit, undocumented process"
+        },
+        "security_engineering": {
+          "clue": "At SAMM Level 1, data egress/staging is restricted by local policy on some systems, but inconsistently applied.",
+          "answer": "Ad hoc control"
+        }
+      }
+    },
+    {
+      "category": "applications",
+      "tier": 3,
+      "tasks": {
+        "cti": {
+          "clue": "This CTI deliverable documents the baseline needed before any data staging and pre-exfiltration hunt can start.",
+          "answer": "Normal data movement and transfer baselines"
+        },
+        "threat_hunting": {
+          "clue": "This hunt deliverable is a repeatable catalog used once the hunt program matures.",
+          "answer": "Compression and archive utility anomaly list"
+        },
+        "detection_engineering": {
+          "clue": "This deliverable codifies analyst response steps so handling this alert isn't tribal knowledge.",
+          "answer": "Knowledge base articles for analyst response"
+        },
+        "engagement": {
+          "clue": "At this level, purple team exercises use a documented adversary emulation plan for T1074 and validate it against existing detections.",
+          "answer": "Structured purple team exercise with a documented emulation plan"
+        },
+        "dfir": {
+          "clue": "At this level, retention windows and chain-of-custody steps for data staging and pre-exfiltration artifacts are defined before an incident ever happens.",
+          "answer": "Defined forensic readiness procedures"
+        },
+        "incident_response": {
+          "clue": "At SIM3 Level 2, a written runbook exists covering containment and eradication steps for data staging and pre-exfiltration incidents.",
+          "answer": "Explicit, written runbook"
+        },
+        "security_engineering": {
+          "clue": "At SAMM Level 2, an org-wide documented policy and a DLP egress policy and approved-destination allowlist restrict data egress/staging to approved accounts, reviewed periodically.",
+          "answer": "Structured, documented control"
+        }
+      }
+    },
+    {
+      "category": "applications",
+      "tier": 4,
+      "tasks": {
+        "cti": {
+          "clue": "This CTI deliverable lists known indicators associated with data staging and pre-exfiltration.",
+          "answer": "Staging location indicators (temp dirs, cloud buckets, removable media)"
+        },
+        "threat_hunting": {
+          "clue": "This hunt deliverable correlates anomalies into a hypothesis-driven log as the hunt program matures further.",
+          "answer": "Temporary directory usage baseline"
+        },
+        "detection_engineering": {
+          "clue": "This deliverable comes from a continuous feedback loop with the owning team, reducing false positives.",
+          "answer": "Authorized backup and sync operation FP tuning guide"
+        },
+        "engagement": {
+          "clue": "At this level, T1074 emulation runs on a recurring schedule and automatically scores detection coverage, routing gaps to detection engineering.",
+          "answer": "Integrated, recurring emulation with automated detection scoring"
+        },
+        "dfir": {
+          "clue": "At this level, data staging and pre-exfiltration artifact collection is automated and its readiness is regularly tested against ISO/IEC 27043 process classes.",
+          "answer": "Managed, automated, and tested forensic readiness"
+        },
+        "incident_response": {
+          "clue": "At SIM3 Level 3, the runbook includes automation hooks like auto-blocking the destination and revoking the upload session, and is kept current.",
+          "answer": "Documented in detail, with automation"
+        },
+        "security_engineering": {
+          "clue": "At SAMM Level 3, the control is enforced via centrally managed policy-as-code (DLP policy-as-code with egress proxy enforcement), monitored for drift, and tied to an effectiveness metric.",
+          "answer": "Optimized, measured control"
+        }
+      }
+    },
+    {
+      "category": "applications",
+      "tier": 5,
+      "tasks": {
+        "cti": {
+          "clue": "This CTI deliverable draws on real intrusions to document how APT groups have carried out data staging and pre-exfiltration.",
+          "answer": "APT data staging and pre-exfiltration case studies"
+        },
+        "threat_hunting": {
+          "clue": "This hunt deliverable is the leading-edge output of a mature hunt program for data staging and pre-exfiltration.",
+          "answer": "Cloud upload and external transfer pattern catalog"
+        },
+        "detection_engineering": {
+          "clue": "This deliverable is the optimized handoff point to incident response.",
+          "answer": "Escalation criteria and runbook"
+        },
+        "engagement": {
+          "clue": "At this level, T1074 emulation runs continuously, with detection and CTI feeding back into the emulation plan itself.",
+          "answer": "Continuous, optimized purple-team integration"
+        },
+        "dfir": {
+          "clue": "At this level, forensic readiness for data staging and pre-exfiltration is continuously measured, audited, and improved as part of the broader DFIR program.",
+          "answer": "Optimized, continuously improved forensic readiness"
+        },
+        "incident_response": {
+          "clue": "At SIM3 Level 4, the runbook and its automation are periodically audited against real data staging and pre-exfiltration incidents to confirm they still work.",
+          "answer": "Audited and periodically reviewed"
+        },
+        "security_engineering": {
+          "clue": "At this stretch level, the control is continuously reassessed and re-architected as adversary data staging and pre-exfiltration tradecraft evolves.",
+          "answer": "Institutionalized, continuously reassessed architecture"
+        }
+      }
+    }
+  ]
+}

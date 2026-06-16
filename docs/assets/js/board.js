@@ -8,7 +8,6 @@
   let functions = null;
   let campaign = null;
   let state = null;
-  let activeCell = null; // { categoryId, tier, functionId, subPoints }
 
   function loadState() {
     const raw = localStorage.getItem(storageKey);
@@ -42,11 +41,6 @@
     const entry = state.answered[cellKey(categoryId, tier)];
     const tasks = entry ? entry.tasks : {};
     return { tasks, answeredCount: Object.keys(tasks).length };
-  }
-
-  function nextUnansweredFunction(categoryId, tier) {
-    const { tasks } = cellProgress(categoryId, tier);
-    return campaign.functions.find(fid => !(fid in tasks)) || null;
   }
 
   function renderHead() {
@@ -113,44 +107,149 @@
     renderTeams();
   }
 
-  function openModal(categoryId, tier) {
-    const functionId = nextUnansweredFunction(categoryId, tier);
-    if (!functionId) return;
+  function buildTaskRow(categoryId, tier, functionId, task, fn, tierIdx, subPoints, gradedEntry) {
+    const row = document.createElement("div");
+    row.className = "task-row";
 
-    const category = findCategory(categoryId);
-    const cell = findCell(categoryId, tier);
-    const task = cell.tasks[functionId];
-    const fn = functions[functionId];
-    const tierIdx = tier - 1;
-    const total = campaign.functions.length;
-    const subPoints = Math.round(cellPoints(category, tierIdx) / total);
-    const stepIdx = campaign.functions.indexOf(functionId);
+    const header = document.createElement("div");
+    header.className = "task-header";
 
-    activeCell = { categoryId, tier, functionId, subPoints };
+    const fnLabel = document.createElement("span");
+    fnLabel.className = "task-function";
+    fnLabel.innerHTML = fn.label + ' <span class="task-model">(' + fn.model + ")</span>";
 
-    document.getElementById("modal-category").textContent =
-      category.icon + " " + category.label + " — " + category.hunt_type + " (" + category.mitre + ")";
-    document.getElementById("modal-points").textContent = subPoints + " pts";
-    document.getElementById("modal-progress").textContent =
-      "Task " + (stepIdx + 1) + " of " + total + " — " + fn.label + " (" + fn.model + ")";
-    document.getElementById("modal-clue").textContent = task.clue;
+    const pts = document.createElement("span");
+    pts.className = "task-points";
+    pts.textContent = subPoints + " pts";
 
-    const answerEl = document.getElementById("modal-answer");
-    const levelEl = document.getElementById("modal-level");
-    const gradingEl = document.getElementById("modal-grading");
-    answerEl.hidden = true;
-    levelEl.hidden = true;
-    gradingEl.hidden = true;
-    answerEl.textContent = task.answer;
-    levelEl.textContent = "Maturity level: " + fn.tier_to_level[tierIdx];
+    const status = document.createElement("span");
+    status.className = "task-status";
 
-    const teamSelect = document.getElementById("grading-team");
-    teamSelect.innerHTML = "";
+    header.appendChild(fnLabel);
+    header.appendChild(pts);
+    header.appendChild(status);
+
+    const clue = document.createElement("div");
+    clue.className = "task-clue";
+    clue.textContent = task.clue;
+
+    const answer = document.createElement("div");
+    answer.className = "task-answer";
+    answer.textContent = task.answer;
+    answer.hidden = true;
+
+    const level = document.createElement("div");
+    level.className = "task-level";
+    level.textContent = "Maturity level: " + fn.tier_to_level[tierIdx];
+    level.hidden = true;
+
+    const revealBtn = document.createElement("button");
+    revealBtn.className = "task-reveal-btn";
+    revealBtn.textContent = "Reveal Answer";
+
+    const grading = document.createElement("div");
+    grading.className = "task-grading";
+    grading.hidden = true;
+
+    const label = document.createElement("label");
+    label.textContent = "Award to:";
+
+    const select = document.createElement("select");
+    select.className = "task-team-select";
     state.teams.forEach((team, idx) => {
       const opt = document.createElement("option");
       opt.value = idx;
       opt.textContent = team.name;
-      teamSelect.appendChild(opt);
+      select.appendChild(opt);
+    });
+
+    const correctBtn = document.createElement("button");
+    correctBtn.className = "task-correct-btn";
+    correctBtn.textContent = "Correct";
+
+    const incorrectBtn = document.createElement("button");
+    incorrectBtn.className = "task-incorrect-btn";
+    incorrectBtn.textContent = "Incorrect / Skip";
+
+    grading.appendChild(label);
+    grading.appendChild(select);
+    grading.appendChild(correctBtn);
+    grading.appendChild(incorrectBtn);
+
+    row.appendChild(header);
+    row.appendChild(clue);
+    row.appendChild(revealBtn);
+    row.appendChild(answer);
+    row.appendChild(level);
+    row.appendChild(grading);
+
+    function applyGraded(correct) {
+      row.classList.add("graded");
+      answer.hidden = false;
+      level.hidden = false;
+      revealBtn.hidden = true;
+      grading.hidden = true;
+      status.textContent = correct ? "✓" : "✗";
+    }
+
+    if (gradedEntry) {
+      applyGraded(gradedEntry.correct);
+    } else {
+      revealBtn.addEventListener("click", () => {
+        answer.hidden = false;
+        level.hidden = false;
+        revealBtn.hidden = true;
+        grading.hidden = state.teams.length === 0;
+      });
+
+      const doGrade = (correct) => {
+        const key = cellKey(categoryId, tier);
+        if (!state.answered[key]) state.answered[key] = { tasks: {} };
+        state.answered[key].tasks[functionId] = { correct: correct };
+
+        if (correct) {
+          const teamIdx = select.value;
+          if (teamIdx !== "" && state.teams[teamIdx]) {
+            state.teams[teamIdx].score += subPoints;
+          }
+        }
+
+        saveState();
+        renderTeams();
+        renderBody();
+        applyGraded(correct);
+      };
+
+      correctBtn.addEventListener("click", () => doGrade(true));
+      incorrectBtn.addEventListener("click", () => doGrade(false));
+    }
+
+    return row;
+  }
+
+  function openModal(categoryId, tier) {
+    const category = findCategory(categoryId);
+    const cell = findCell(categoryId, tier);
+    const tierIdx = tier - 1;
+    const total = campaign.functions.length;
+    const points = cellPoints(category, tierIdx);
+    const subPoints = Math.round(points / total);
+    const { tasks } = cellProgress(categoryId, tier);
+
+    document.getElementById("modal-category").textContent =
+      category.icon + " " + category.label + " — " + category.hunt_type + " (" + category.mitre + ")";
+    document.getElementById("modal-points").textContent =
+      points + " pts total — " + subPoints + " pts per task";
+
+    const tasksEl = document.getElementById("modal-tasks");
+    tasksEl.innerHTML = "";
+    campaign.functions.forEach(functionId => {
+      const task = cell.tasks[functionId];
+      const fn = functions[functionId];
+      const gradedEntry = tasks[functionId] || null;
+      tasksEl.appendChild(
+        buildTaskRow(categoryId, tier, functionId, task, fn, tierIdx, subPoints, gradedEntry)
+      );
     });
 
     document.getElementById("modal-backdrop").classList.add("open");
@@ -158,40 +257,6 @@
 
   function closeModal() {
     document.getElementById("modal-backdrop").classList.remove("open");
-    activeCell = null;
-  }
-
-  function reveal() {
-    document.getElementById("modal-answer").hidden = false;
-    document.getElementById("modal-level").hidden = false;
-    document.getElementById("modal-grading").hidden = state.teams.length === 0;
-  }
-
-  function grade(correct) {
-    if (!activeCell) return;
-    const { categoryId, tier, functionId, subPoints } = activeCell;
-    const key = cellKey(categoryId, tier);
-    if (!state.answered[key]) state.answered[key] = { tasks: {} };
-    state.answered[key].tasks[functionId] = { correct: correct };
-
-    if (correct) {
-      const teamSelect = document.getElementById("grading-team");
-      const teamIdx = teamSelect.value;
-      if (teamIdx !== "" && state.teams[teamIdx]) {
-        state.teams[teamIdx].score += subPoints;
-      }
-    }
-
-    saveState();
-    renderTeams();
-    renderBody();
-
-    const next = nextUnansweredFunction(categoryId, tier);
-    if (next) {
-      openModal(categoryId, tier);
-    } else {
-      closeModal();
-    }
   }
 
   function showSummary() {
@@ -239,9 +304,6 @@
       input.value = "";
     });
 
-    document.getElementById("reveal-btn").addEventListener("click", reveal);
-    document.getElementById("mark-correct-btn").addEventListener("click", () => grade(true));
-    document.getElementById("mark-incorrect-btn").addEventListener("click", () => grade(false));
     document.getElementById("modal-close-btn").addEventListener("click", closeModal);
     document.getElementById("show-summary-btn").addEventListener("click", showSummary);
   }

@@ -1,0 +1,737 @@
+{
+  "id": "class-3-schema",
+  "title": "Class 3 — Schema",
+  "subtitle": "Crown jewels × maturity tiers — every cell exercises all 7 SOC functions",
+  "functions": [
+    "cti",
+    "threat_hunting",
+    "detection_engineering",
+    "engagement",
+    "dfir",
+    "incident_response",
+    "security_engineering"
+  ],
+  "points": [
+    300,
+    600,
+    900,
+    1200,
+    1500
+  ],
+  "categories": [
+    {
+      "id": "active_directory",
+      "label": "Active Directory",
+      "icon": "🔐",
+      "multiplier": 3,
+      "mitre": "T1547",
+      "hunt_type": "Registry Persistence"
+    },
+    {
+      "id": "secrets_identity",
+      "label": "Secrets/Identity",
+      "icon": "🗝️",
+      "multiplier": 2,
+      "mitre": "T1578",
+      "hunt_type": "Cloud Anomalies"
+    },
+    {
+      "id": "infrastructure",
+      "label": "Infrastructure",
+      "icon": "🖥️",
+      "multiplier": 2,
+      "mitre": "T1195",
+      "hunt_type": "Package Manager Activity"
+    },
+    {
+      "id": "applications",
+      "label": "Applications",
+      "icon": "📱",
+      "multiplier": 1,
+      "mitre": "T1068",
+      "hunt_type": "Privilege Escalation"
+    }
+  ],
+  "cells": [
+    {
+      "category": "active_directory",
+      "tier": 1,
+      "tasks": {
+        "cti": {
+          "clue": "This CTI deliverable compiles known adversary tradecraft for Registry Persistence (T1547) into actor-specific playbooks.",
+          "answer": "Registry-based persistence playbooks per threat actor"
+        },
+        "threat_hunting": {
+          "clue": "This hunt deliverable is the minimum registry needed to start hunting registry-based persistence.",
+          "answer": "Registry modification catalog with deviation tracking"
+        },
+        "detection_engineering": {
+          "clue": "This is the most basic detection artifact for this technique.",
+          "answer": "Registry modification and persistence key detection rules"
+        },
+        "engagement": {
+          "clue": "At this maturity level, no one has ever actually emulated Registry Persistence (T1547) against this environment — it's theoretical only.",
+          "answer": "Ad hoc / no emulation"
+        },
+        "dfir": {
+          "clue": "At this level, artifacts like Sysmon Event ID 13 registry value-set events and autorun key snapshots are only collected after an incident is already suspected.",
+          "answer": "Ad hoc, reactive artifact collection"
+        },
+        "incident_response": {
+          "clue": "At SIM3 Level 0, this is the state of the response process when confirmed registry-based persistence is detected: there isn't one.",
+          "answer": "No defined IR process"
+        },
+        "security_engineering": {
+          "clue": "At SAMM Level 0, this is the control restricting who can write to autorun and persistence-relevant registry keys: none exists.",
+          "answer": "No control"
+        }
+      }
+    },
+    {
+      "category": "active_directory",
+      "tier": 2,
+      "tasks": {
+        "cti": {
+          "clue": "This CTI deliverable fully maps the technique to its MITRE ATT&CK entry, including sub-techniques and procedure examples.",
+          "answer": "MITRE ATT&CK T1547 full technique mapping"
+        },
+        "threat_hunting": {
+          "clue": "This hunt deliverable tracks deviations from baseline related to registry-based persistence.",
+          "answer": "Autorun and persistence key anomaly list"
+        },
+        "detection_engineering": {
+          "clue": "This detection deliverable specifically alerts on the technique's most identifiable behavior.",
+          "answer": "Autorun and COM hijack alerts"
+        },
+        "engagement": {
+          "clue": "At this level, a single red-team exercise emulated T1547 registry persistence, but the findings never made it back to detection engineering.",
+          "answer": "Isolated emulation exercise, no feedback loop"
+        },
+        "dfir": {
+          "clue": "At this level, a documented list of registry-based persistence-relevant artifacts exists, but collecting them still depends on which analyst is on shift.",
+          "answer": "Documented artifact list, inconsistently executed"
+        },
+        "incident_response": {
+          "clue": "At SIM3 Level 1, analysts informally know how to respond to confirmed registry-based persistence, but nothing is written down.",
+          "answer": "Implicit, undocumented process"
+        },
+        "security_engineering": {
+          "clue": "At SAMM Level 1, registry autorun writes is restricted by local policy on some systems, but inconsistently applied.",
+          "answer": "Ad hoc control"
+        }
+      }
+    },
+    {
+      "category": "active_directory",
+      "tier": 3,
+      "tasks": {
+        "cti": {
+          "clue": "This CTI deliverable documents the baseline needed before any registry-based persistence hunt can start.",
+          "answer": "Clean registry baseline (known good state per system role)"
+        },
+        "threat_hunting": {
+          "clue": "This hunt deliverable is a repeatable catalog used once the hunt program matures.",
+          "answer": "COM object hijacking indicator registry"
+        },
+        "detection_engineering": {
+          "clue": "This deliverable codifies analyst response steps so handling this alert isn't tribal knowledge.",
+          "answer": "Knowledge base articles for analyst response"
+        },
+        "engagement": {
+          "clue": "At this level, purple team exercises use a documented adversary emulation plan for T1547 and validate it against existing detections.",
+          "answer": "Structured purple team exercise with a documented emulation plan"
+        },
+        "dfir": {
+          "clue": "At this level, retention windows and chain-of-custody steps for registry-based persistence artifacts are defined before an incident ever happens.",
+          "answer": "Defined forensic readiness procedures"
+        },
+        "incident_response": {
+          "clue": "At SIM3 Level 2, a written runbook exists covering containment and eradication steps for registry-based persistence incidents.",
+          "answer": "Explicit, written runbook"
+        },
+        "security_engineering": {
+          "clue": "At SAMM Level 2, an org-wide documented policy and registry ACL hardening and tamper-protection restrict registry autorun writes to approved accounts, reviewed periodically.",
+          "answer": "Structured, documented control"
+        }
+      }
+    },
+    {
+      "category": "active_directory",
+      "tier": 4,
+      "tasks": {
+        "cti": {
+          "clue": "This CTI deliverable lists known indicators associated with registry-based persistence.",
+          "answer": "Persistence key and autorun value indicators"
+        },
+        "threat_hunting": {
+          "clue": "This hunt deliverable correlates anomalies into a hypothesis-driven log as the hunt program matures further.",
+          "answer": "DLL search order manipulation pattern log"
+        },
+        "detection_engineering": {
+          "clue": "This deliverable comes from a continuous feedback loop with the owning team, reducing false positives.",
+          "answer": "Legitimate software installer registry FP tuning guide"
+        },
+        "engagement": {
+          "clue": "At this level, T1547 emulation runs on a recurring schedule and automatically scores detection coverage, routing gaps to detection engineering.",
+          "answer": "Integrated, recurring emulation with automated detection scoring"
+        },
+        "dfir": {
+          "clue": "At this level, registry-based persistence artifact collection is automated and its readiness is regularly tested against ISO/IEC 27043 process classes.",
+          "answer": "Managed, automated, and tested forensic readiness"
+        },
+        "incident_response": {
+          "clue": "At SIM3 Level 3, the runbook includes automation hooks like auto-removing the malicious autorun key and isolating the host, and is kept current.",
+          "answer": "Documented in detail, with automation"
+        },
+        "security_engineering": {
+          "clue": "At SAMM Level 3, the control is enforced via centrally managed policy-as-code (registry ACL-as-code + EDR tamper protection), monitored for drift, and tied to an effectiveness metric.",
+          "answer": "Optimized, measured control"
+        }
+      }
+    },
+    {
+      "category": "active_directory",
+      "tier": 5,
+      "tasks": {
+        "cti": {
+          "clue": "This CTI deliverable draws on real intrusions to document how APT groups have carried out registry-based persistence.",
+          "answer": "APT registry abuse and rootkit case studies"
+        },
+        "threat_hunting": {
+          "clue": "This hunt deliverable is the leading-edge output of a mature hunt program for registry-based persistence.",
+          "answer": "Boot and logon persistence change log"
+        },
+        "detection_engineering": {
+          "clue": "This deliverable is the optimized handoff point to incident response.",
+          "answer": "Escalation criteria and runbook"
+        },
+        "engagement": {
+          "clue": "At this level, T1547 emulation runs continuously, with detection and CTI feeding back into the emulation plan itself.",
+          "answer": "Continuous, optimized purple-team integration"
+        },
+        "dfir": {
+          "clue": "At this level, forensic readiness for registry-based persistence is continuously measured, audited, and improved as part of the broader DFIR program.",
+          "answer": "Optimized, continuously improved forensic readiness"
+        },
+        "incident_response": {
+          "clue": "At SIM3 Level 4, the runbook and its automation are periodically audited against real registry-based persistence incidents to confirm they still work.",
+          "answer": "Audited and periodically reviewed"
+        },
+        "security_engineering": {
+          "clue": "At this stretch level, the control is continuously reassessed and re-architected as adversary registry-based persistence tradecraft evolves.",
+          "answer": "Institutionalized, continuously reassessed architecture"
+        }
+      }
+    },
+    {
+      "category": "secrets_identity",
+      "tier": 1,
+      "tasks": {
+        "cti": {
+          "clue": "This CTI deliverable compiles known adversary tradecraft for Cloud Anomalies (T1578) into actor-specific playbooks.",
+          "answer": "Cloud-based attack and resource abuse playbooks"
+        },
+        "threat_hunting": {
+          "clue": "This hunt deliverable is the minimum registry needed to start hunting cloud identity and resource abuse.",
+          "answer": "API call anomaly registry per service and account"
+        },
+        "detection_engineering": {
+          "clue": "This is the most basic detection artifact for this technique.",
+          "answer": "Cloud anomaly and unauthorized resource creation rules"
+        },
+        "engagement": {
+          "clue": "At this maturity level, no one has ever actually emulated Cloud Anomalies (T1578) against this environment — it's theoretical only.",
+          "answer": "Ad hoc / no emulation"
+        },
+        "dfir": {
+          "clue": "At this level, artifacts like CloudTrail/Azure Activity Log API call records tied to IAM principals are only collected after an incident is already suspected.",
+          "answer": "Ad hoc, reactive artifact collection"
+        },
+        "incident_response": {
+          "clue": "At SIM3 Level 0, this is the state of the response process when confirmed cloud identity and resource abuse is detected: there isn't one.",
+          "answer": "No defined IR process"
+        },
+        "security_engineering": {
+          "clue": "At SAMM Level 0, this is the control restricting which identities can call sensitive cloud IAM and resource-provisioning APIs: none exists.",
+          "answer": "No control"
+        }
+      }
+    },
+    {
+      "category": "secrets_identity",
+      "tier": 2,
+      "tasks": {
+        "cti": {
+          "clue": "This CTI deliverable fully maps the technique to its MITRE ATT&CK entry, including sub-techniques and procedure examples.",
+          "answer": "MITRE ATT&CK T1578 full technique mapping"
+        },
+        "threat_hunting": {
+          "clue": "This hunt deliverable tracks deviations from baseline related to cloud identity and resource abuse.",
+          "answer": "Unexpected resource creation and modification catalog"
+        },
+        "detection_engineering": {
+          "clue": "This detection deliverable specifically alerts on the technique's most identifiable behavior.",
+          "answer": "API abuse and cross-account access alerts"
+        },
+        "engagement": {
+          "clue": "At this level, a single red-team exercise emulated T1578 cloud anomalies, but the findings never made it back to detection engineering.",
+          "answer": "Isolated emulation exercise, no feedback loop"
+        },
+        "dfir": {
+          "clue": "At this level, a documented list of cloud identity and resource abuse-relevant artifacts exists, but collecting them still depends on which analyst is on shift.",
+          "answer": "Documented artifact list, inconsistently executed"
+        },
+        "incident_response": {
+          "clue": "At SIM3 Level 1, analysts informally know how to respond to confirmed cloud identity and resource abuse, but nothing is written down.",
+          "answer": "Implicit, undocumented process"
+        },
+        "security_engineering": {
+          "clue": "At SAMM Level 1, cloud API/IAM access is restricted by local policy on some systems, but inconsistently applied.",
+          "answer": "Ad hoc control"
+        }
+      }
+    },
+    {
+      "category": "secrets_identity",
+      "tier": 3,
+      "tasks": {
+        "cti": {
+          "clue": "This CTI deliverable documents the baseline needed before any cloud identity and resource abuse hunt can start.",
+          "answer": "Normal cloud API call and resource provisioning baselines"
+        },
+        "threat_hunting": {
+          "clue": "This hunt deliverable is a repeatable catalog used once the hunt program matures.",
+          "answer": "Cross-account access pattern list"
+        },
+        "detection_engineering": {
+          "clue": "This deliverable codifies analyst response steps so handling this alert isn't tribal knowledge.",
+          "answer": "Knowledge base articles for analyst response"
+        },
+        "engagement": {
+          "clue": "At this level, purple team exercises use a documented adversary emulation plan for T1578 and validate it against existing detections.",
+          "answer": "Structured purple team exercise with a documented emulation plan"
+        },
+        "dfir": {
+          "clue": "At this level, retention windows and chain-of-custody steps for cloud identity and resource abuse artifacts are defined before an incident ever happens.",
+          "answer": "Defined forensic readiness procedures"
+        },
+        "incident_response": {
+          "clue": "At SIM3 Level 2, a written runbook exists covering containment and eradication steps for cloud identity and resource abuse incidents.",
+          "answer": "Explicit, written runbook"
+        },
+        "security_engineering": {
+          "clue": "At SAMM Level 2, an org-wide documented policy and a least-privilege IAM review and just-in-time access process restrict cloud API/IAM access to approved accounts, reviewed periodically.",
+          "answer": "Structured, documented control"
+        }
+      }
+    },
+    {
+      "category": "secrets_identity",
+      "tier": 4,
+      "tasks": {
+        "cti": {
+          "clue": "This CTI deliverable lists known indicators associated with cloud identity and resource abuse.",
+          "answer": "Cross-account access and privilege escalation indicators"
+        },
+        "threat_hunting": {
+          "clue": "This hunt deliverable correlates anomalies into a hypothesis-driven log as the hunt program matures further.",
+          "answer": "IAM policy and permission change log"
+        },
+        "detection_engineering": {
+          "clue": "This deliverable comes from a continuous feedback loop with the owning team, reducing false positives.",
+          "answer": "DevOps and automation pipeline FP tuning guide"
+        },
+        "engagement": {
+          "clue": "At this level, T1578 emulation runs on a recurring schedule and automatically scores detection coverage, routing gaps to detection engineering.",
+          "answer": "Integrated, recurring emulation with automated detection scoring"
+        },
+        "dfir": {
+          "clue": "At this level, cloud identity and resource abuse artifact collection is automated and its readiness is regularly tested against ISO/IEC 27043 process classes.",
+          "answer": "Managed, automated, and tested forensic readiness"
+        },
+        "incident_response": {
+          "clue": "At SIM3 Level 3, the runbook includes automation hooks like auto-revoking the anomalous IAM credentials/service principal, and is kept current.",
+          "answer": "Documented in detail, with automation"
+        },
+        "security_engineering": {
+          "clue": "At SAMM Level 3, the control is enforced via centrally managed policy-as-code (IAM policy-as-code with just-in-time elevation), monitored for drift, and tied to an effectiveness metric.",
+          "answer": "Optimized, measured control"
+        }
+      }
+    },
+    {
+      "category": "secrets_identity",
+      "tier": 5,
+      "tasks": {
+        "cti": {
+          "clue": "This CTI deliverable draws on real intrusions to document how APT groups have carried out cloud identity and resource abuse.",
+          "answer": "Cloud APT and cryptojacking case studies"
+        },
+        "threat_hunting": {
+          "clue": "This hunt deliverable is the leading-edge output of a mature hunt program for cloud identity and resource abuse.",
+          "answer": "Cost anomaly and resource hoarding indicator catalog"
+        },
+        "detection_engineering": {
+          "clue": "This deliverable is the optimized handoff point to incident response.",
+          "answer": "Escalation criteria and runbook"
+        },
+        "engagement": {
+          "clue": "At this level, T1578 emulation runs continuously, with detection and CTI feeding back into the emulation plan itself.",
+          "answer": "Continuous, optimized purple-team integration"
+        },
+        "dfir": {
+          "clue": "At this level, forensic readiness for cloud identity and resource abuse is continuously measured, audited, and improved as part of the broader DFIR program.",
+          "answer": "Optimized, continuously improved forensic readiness"
+        },
+        "incident_response": {
+          "clue": "At SIM3 Level 4, the runbook and its automation are periodically audited against real cloud identity and resource abuse incidents to confirm they still work.",
+          "answer": "Audited and periodically reviewed"
+        },
+        "security_engineering": {
+          "clue": "At this stretch level, the control is continuously reassessed and re-architected as adversary cloud identity and resource abuse tradecraft evolves.",
+          "answer": "Institutionalized, continuously reassessed architecture"
+        }
+      }
+    },
+    {
+      "category": "infrastructure",
+      "tier": 1,
+      "tasks": {
+        "cti": {
+          "clue": "This CTI deliverable compiles known adversary tradecraft for Package Manager Activity (T1195) into actor-specific playbooks.",
+          "answer": "Supply chain attack and package poisoning playbooks"
+        },
+        "threat_hunting": {
+          "clue": "This hunt deliverable is the minimum registry needed to start hunting OS-level package manager abuse.",
+          "answer": "Unauthorized repository access log"
+        },
+        "detection_engineering": {
+          "clue": "This is the most basic detection artifact for this technique.",
+          "answer": "Unauthorized package install detection rules"
+        },
+        "engagement": {
+          "clue": "At this maturity level, no one has ever actually emulated Package Manager Activity (T1195) against this environment — it's theoretical only.",
+          "answer": "Ad hoc / no emulation"
+        },
+        "dfir": {
+          "clue": "At this level, artifacts like package manager transaction logs (apt/yum history) and OS patch logs are only collected after an incident is already suspected.",
+          "answer": "Ad hoc, reactive artifact collection"
+        },
+        "incident_response": {
+          "clue": "At SIM3 Level 0, this is the state of the response process when confirmed OS-level package manager abuse is detected: there isn't one.",
+          "answer": "No defined IR process"
+        },
+        "security_engineering": {
+          "clue": "At SAMM Level 0, this is the control restricting who can install or update OS-level packages on infrastructure hosts: none exists.",
+          "answer": "No control"
+        }
+      }
+    },
+    {
+      "category": "infrastructure",
+      "tier": 2,
+      "tasks": {
+        "cti": {
+          "clue": "This CTI deliverable fully maps the technique to its MITRE ATT&CK entry, including sub-techniques and procedure examples.",
+          "answer": "MITRE ATT&CK T1195 full technique mapping"
+        },
+        "threat_hunting": {
+          "clue": "This hunt deliverable tracks deviations from baseline related to OS-level package manager abuse.",
+          "answer": "Package hash and integrity registry"
+        },
+        "detection_engineering": {
+          "clue": "This detection deliverable specifically alerts on the technique's most identifiable behavior.",
+          "answer": "Hash mismatch and unknown source alerts"
+        },
+        "engagement": {
+          "clue": "At this level, a single red-team exercise emulated T1195 package manager activity, but the findings never made it back to detection engineering.",
+          "answer": "Isolated emulation exercise, no feedback loop"
+        },
+        "dfir": {
+          "clue": "At this level, a documented list of OS-level package manager abuse-relevant artifacts exists, but collecting them still depends on which analyst is on shift.",
+          "answer": "Documented artifact list, inconsistently executed"
+        },
+        "incident_response": {
+          "clue": "At SIM3 Level 1, analysts informally know how to respond to confirmed OS-level package manager abuse, but nothing is written down.",
+          "answer": "Implicit, undocumented process"
+        },
+        "security_engineering": {
+          "clue": "At SAMM Level 1, package installation is restricted by local policy on some systems, but inconsistently applied.",
+          "answer": "Ad hoc control"
+        }
+      }
+    },
+    {
+      "category": "infrastructure",
+      "tier": 3,
+      "tasks": {
+        "cti": {
+          "clue": "This CTI deliverable documents the baseline needed before any OS-level package manager abuse hunt can start.",
+          "answer": "Approved package and repository baseline"
+        },
+        "threat_hunting": {
+          "clue": "This hunt deliverable is a repeatable catalog used once the hunt program matures.",
+          "answer": "Dependency confusion and typosquatting indicator list"
+        },
+        "detection_engineering": {
+          "clue": "This deliverable codifies analyst response steps so handling this alert isn't tribal knowledge.",
+          "answer": "Knowledge base articles for analyst response"
+        },
+        "engagement": {
+          "clue": "At this level, purple team exercises use a documented adversary emulation plan for T1195 and validate it against existing detections.",
+          "answer": "Structured purple team exercise with a documented emulation plan"
+        },
+        "dfir": {
+          "clue": "At this level, retention windows and chain-of-custody steps for OS-level package manager abuse artifacts are defined before an incident ever happens.",
+          "answer": "Defined forensic readiness procedures"
+        },
+        "incident_response": {
+          "clue": "At SIM3 Level 2, a written runbook exists covering containment and eradication steps for OS-level package manager abuse incidents.",
+          "answer": "Explicit, written runbook"
+        },
+        "security_engineering": {
+          "clue": "At SAMM Level 2, an org-wide documented policy and an SBOM and package allowlist process restrict package installation to approved accounts, reviewed periodically.",
+          "answer": "Structured, documented control"
+        }
+      }
+    },
+    {
+      "category": "infrastructure",
+      "tier": 4,
+      "tasks": {
+        "cti": {
+          "clue": "This CTI deliverable lists known indicators associated with OS-level package manager abuse.",
+          "answer": "Malicious package indicators and known bad hashes"
+        },
+        "threat_hunting": {
+          "clue": "This hunt deliverable correlates anomalies into a hypothesis-driven log as the hunt program matures further.",
+          "answer": "Build system and CI/CD anomaly catalog"
+        },
+        "detection_engineering": {
+          "clue": "This deliverable comes from a continuous feedback loop with the owning team, reducing false positives.",
+          "answer": "Approved CI/CD pipeline FP tuning guide"
+        },
+        "engagement": {
+          "clue": "At this level, T1195 emulation runs on a recurring schedule and automatically scores detection coverage, routing gaps to detection engineering.",
+          "answer": "Integrated, recurring emulation with automated detection scoring"
+        },
+        "dfir": {
+          "clue": "At this level, OS-level package manager abuse artifact collection is automated and its readiness is regularly tested against ISO/IEC 27043 process classes.",
+          "answer": "Managed, automated, and tested forensic readiness"
+        },
+        "incident_response": {
+          "clue": "At SIM3 Level 3, the runbook includes automation hooks like auto-rolling back the unauthorized package install, and is kept current.",
+          "answer": "Documented in detail, with automation"
+        },
+        "security_engineering": {
+          "clue": "At SAMM Level 3, the control is enforced via centrally managed policy-as-code (SBOM + package allowlist enforcement), monitored for drift, and tied to an effectiveness metric.",
+          "answer": "Optimized, measured control"
+        }
+      }
+    },
+    {
+      "category": "infrastructure",
+      "tier": 5,
+      "tasks": {
+        "cti": {
+          "clue": "This CTI deliverable draws on real intrusions to document how APT groups have carried out OS-level package manager abuse.",
+          "answer": "Recent supply chain incident case studies (SolarWinds, XZ Utils, etc.)"
+        },
+        "threat_hunting": {
+          "clue": "This hunt deliverable is the leading-edge output of a mature hunt program for OS-level package manager abuse.",
+          "answer": "Developer tool misuse pattern documentation"
+        },
+        "detection_engineering": {
+          "clue": "This deliverable is the optimized handoff point to incident response.",
+          "answer": "Escalation criteria and runbook"
+        },
+        "engagement": {
+          "clue": "At this level, T1195 emulation runs continuously, with detection and CTI feeding back into the emulation plan itself.",
+          "answer": "Continuous, optimized purple-team integration"
+        },
+        "dfir": {
+          "clue": "At this level, forensic readiness for OS-level package manager abuse is continuously measured, audited, and improved as part of the broader DFIR program.",
+          "answer": "Optimized, continuously improved forensic readiness"
+        },
+        "incident_response": {
+          "clue": "At SIM3 Level 4, the runbook and its automation are periodically audited against real OS-level package manager abuse incidents to confirm they still work.",
+          "answer": "Audited and periodically reviewed"
+        },
+        "security_engineering": {
+          "clue": "At this stretch level, the control is continuously reassessed and re-architected as adversary OS-level package manager abuse tradecraft evolves.",
+          "answer": "Institutionalized, continuously reassessed architecture"
+        }
+      }
+    },
+    {
+      "category": "applications",
+      "tier": 1,
+      "tasks": {
+        "cti": {
+          "clue": "This CTI deliverable compiles known adversary tradecraft for Privilege Escalation (T1068) into actor-specific playbooks.",
+          "answer": "Privilege escalation technique playbooks per adversary group"
+        },
+        "threat_hunting": {
+          "clue": "This hunt deliverable is the minimum registry needed to start hunting application-level privilege escalation.",
+          "answer": "Token impersonation and privilege use registry"
+        },
+        "detection_engineering": {
+          "clue": "This is the most basic detection artifact for this technique.",
+          "answer": "Privilege escalation and token manipulation detection rules"
+        },
+        "engagement": {
+          "clue": "At this maturity level, no one has ever actually emulated Privilege Escalation (T1068) against this environment — it's theoretical only.",
+          "answer": "Ad hoc / no emulation"
+        },
+        "dfir": {
+          "clue": "At this level, artifacts like application server privilege/token elevation logs (setuid execution, container capability grants) are only collected after an incident is already suspected.",
+          "answer": "Ad hoc, reactive artifact collection"
+        },
+        "incident_response": {
+          "clue": "At SIM3 Level 0, this is the state of the response process when confirmed application-level privilege escalation is detected: there isn't one.",
+          "answer": "No defined IR process"
+        },
+        "security_engineering": {
+          "clue": "At SAMM Level 0, this is the control restricting which application processes can request elevated privileges or capabilities: none exists.",
+          "answer": "No control"
+        }
+      }
+    },
+    {
+      "category": "applications",
+      "tier": 2,
+      "tasks": {
+        "cti": {
+          "clue": "This CTI deliverable fully maps the technique to its MITRE ATT&CK entry, including sub-techniques and procedure examples.",
+          "answer": "MITRE ATT&CK T1068 full technique mapping"
+        },
+        "threat_hunting": {
+          "clue": "This hunt deliverable tracks deviations from baseline related to application-level privilege escalation.",
+          "answer": "UAC bypass technique pattern catalog"
+        },
+        "detection_engineering": {
+          "clue": "This detection deliverable specifically alerts on the technique's most identifiable behavior.",
+          "answer": "UAC bypass and unexpected elevation alerts"
+        },
+        "engagement": {
+          "clue": "At this level, a single red-team exercise emulated T1068 privilege escalation, but the findings never made it back to detection engineering.",
+          "answer": "Isolated emulation exercise, no feedback loop"
+        },
+        "dfir": {
+          "clue": "At this level, a documented list of application-level privilege escalation-relevant artifacts exists, but collecting them still depends on which analyst is on shift.",
+          "answer": "Documented artifact list, inconsistently executed"
+        },
+        "incident_response": {
+          "clue": "At SIM3 Level 1, analysts informally know how to respond to confirmed application-level privilege escalation, but nothing is written down.",
+          "answer": "Implicit, undocumented process"
+        },
+        "security_engineering": {
+          "clue": "At SAMM Level 1, privilege elevation requests is restricted by local policy on some systems, but inconsistently applied.",
+          "answer": "Ad hoc control"
+        }
+      }
+    },
+    {
+      "category": "applications",
+      "tier": 3,
+      "tasks": {
+        "cti": {
+          "clue": "This CTI deliverable documents the baseline needed before any application-level privilege escalation hunt can start.",
+          "answer": "Normal privilege and token usage baselines per role"
+        },
+        "threat_hunting": {
+          "clue": "This hunt deliverable is a repeatable catalog used once the hunt program matures.",
+          "answer": "Kernel exploit attempt indicator list"
+        },
+        "detection_engineering": {
+          "clue": "This deliverable codifies analyst response steps so handling this alert isn't tribal knowledge.",
+          "answer": "Knowledge base articles for analyst response"
+        },
+        "engagement": {
+          "clue": "At this level, purple team exercises use a documented adversary emulation plan for T1068 and validate it against existing detections.",
+          "answer": "Structured purple team exercise with a documented emulation plan"
+        },
+        "dfir": {
+          "clue": "At this level, retention windows and chain-of-custody steps for application-level privilege escalation artifacts are defined before an incident ever happens.",
+          "answer": "Defined forensic readiness procedures"
+        },
+        "incident_response": {
+          "clue": "At SIM3 Level 2, a written runbook exists covering containment and eradication steps for application-level privilege escalation incidents.",
+          "answer": "Explicit, written runbook"
+        },
+        "security_engineering": {
+          "clue": "At SAMM Level 2, an org-wide documented policy and a least-privilege application runtime policy restrict privilege elevation requests to approved accounts, reviewed periodically.",
+          "answer": "Structured, documented control"
+        }
+      }
+    },
+    {
+      "category": "applications",
+      "tier": 4,
+      "tasks": {
+        "cti": {
+          "clue": "This CTI deliverable lists known indicators associated with application-level privilege escalation.",
+          "answer": "UAC bypass and kernel exploit indicators"
+        },
+        "threat_hunting": {
+          "clue": "This hunt deliverable correlates anomalies into a hypothesis-driven log as the hunt program matures further.",
+          "answer": "Service account elevation anomaly log"
+        },
+        "detection_engineering": {
+          "clue": "This deliverable comes from a continuous feedback loop with the owning team, reducing false positives.",
+          "answer": "Authorized administrative workflow FP tuning guide"
+        },
+        "engagement": {
+          "clue": "At this level, T1068 emulation runs on a recurring schedule and automatically scores detection coverage, routing gaps to detection engineering.",
+          "answer": "Integrated, recurring emulation with automated detection scoring"
+        },
+        "dfir": {
+          "clue": "At this level, application-level privilege escalation artifact collection is automated and its readiness is regularly tested against ISO/IEC 27043 process classes.",
+          "answer": "Managed, automated, and tested forensic readiness"
+        },
+        "incident_response": {
+          "clue": "At SIM3 Level 3, the runbook includes automation hooks like auto-revoking the escalated session/token, and is kept current.",
+          "answer": "Documented in detail, with automation"
+        },
+        "security_engineering": {
+          "clue": "At SAMM Level 3, the control is enforced via centrally managed policy-as-code (runtime privilege policy-as-code (seccomp/AppArmor profiles)), monitored for drift, and tied to an effectiveness metric.",
+          "answer": "Optimized, measured control"
+        }
+      }
+    },
+    {
+      "category": "applications",
+      "tier": 5,
+      "tasks": {
+        "cti": {
+          "clue": "This CTI deliverable draws on real intrusions to document how APT groups have carried out application-level privilege escalation.",
+          "answer": "APT privilege escalation to domain admin case studies"
+        },
+        "threat_hunting": {
+          "clue": "This hunt deliverable is the leading-edge output of a mature hunt program for application-level privilege escalation.",
+          "answer": "Group policy and ACL abuse pattern documentation"
+        },
+        "detection_engineering": {
+          "clue": "This deliverable is the optimized handoff point to incident response.",
+          "answer": "Escalation criteria and runbook"
+        },
+        "engagement": {
+          "clue": "At this level, T1068 emulation runs continuously, with detection and CTI feeding back into the emulation plan itself.",
+          "answer": "Continuous, optimized purple-team integration"
+        },
+        "dfir": {
+          "clue": "At this level, forensic readiness for application-level privilege escalation is continuously measured, audited, and improved as part of the broader DFIR program.",
+          "answer": "Optimized, continuously improved forensic readiness"
+        },
+        "incident_response": {
+          "clue": "At SIM3 Level 4, the runbook and its automation are periodically audited against real application-level privilege escalation incidents to confirm they still work.",
+          "answer": "Audited and periodically reviewed"
+        },
+        "security_engineering": {
+          "clue": "At this stretch level, the control is continuously reassessed and re-architected as adversary application-level privilege escalation tradecraft evolves.",
+          "answer": "Institutionalized, continuously reassessed architecture"
+        }
+      }
+    }
+  ]
+}

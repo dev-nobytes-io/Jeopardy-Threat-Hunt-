@@ -82,5 +82,10 @@ crown-jewel categories (with icon, multiplier, and ATT&CK mapping), and a
 `clue`/`answer` task for every function. `board.js` reads the campaign via a
 `?campaign=<id>` query parameter on `board.html`.
 
-Currently `class-1-schema` is implemented; the `class-2`/`class-3` boards and
-their non-prod/sit/uat/prod variants are still pending the same treatment.
+`class-1-schema`, `class-2-schema`, and `class-3-schema` are implemented,
+each using a different representative ATT&CK technique per crown jewel so
+the boards don't repeat content. The non-prod/sit/uat/prod environment
+variants for each class are still pending the same treatment.
+
+Opening a cell shows all 7 function tasks at once (not one at a time) — each
+task can be revealed and graded independently within the same view.
