@@ -182,7 +182,8 @@ table.board td {
 }
 
 .modal-category { color: var(--gold); font-weight: bold; text-transform: uppercase; }
-.modal-points { font-size: 1.5rem; margin: 8px 0 16px; }
+.modal-points { font-size: 1.5rem; margin: 8px 0 4px; }
+.modal-progress { font-size: 0.85rem; opacity: 0.75; margin-bottom: 16px; }
 .modal-clue { font-size: 1.2rem; margin-bottom: 20px; }
 .modal-answer { font-size: 1.1rem; color: var(--gold); margin: 12px 0; }
 .modal-level { font-size: 0.95rem; opacity: 0.85; margin-bottom: 12px; }

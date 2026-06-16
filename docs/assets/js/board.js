@@ -8,6 +8,7 @@
   let functions = null;
   let campaign = null;
   let state = null;
+  let activeCell = null; // { categoryId, tier, functionId, subPoints }
 
   function loadState() {
     const raw = localStorage.getItem(storageKey);
@@ -21,21 +22,41 @@
     localStorage.setItem(storageKey, JSON.stringify(state));
   }
 
-  function cellKey(category, tier) {
-    return category + ":" + tier;
+  function cellKey(categoryId, tier) {
+    return categoryId + ":" + tier;
   }
 
-  function findCell(category, tier) {
-    return campaign.cells.find(c => c.category === category && c.tier === tier);
+  function findCategory(categoryId) {
+    return campaign.categories.find(c => c.id === categoryId);
+  }
+
+  function findCell(categoryId, tier) {
+    return campaign.cells.find(c => c.category === categoryId && c.tier === tier);
+  }
+
+  function cellPoints(category, tierIdx) {
+    return campaign.points[tierIdx] * category.multiplier;
+  }
+
+  function cellProgress(categoryId, tier) {
+    const entry = state.answered[cellKey(categoryId, tier)];
+    const tasks = entry ? entry.tasks : {};
+    return { tasks, answeredCount: Object.keys(tasks).length };
+  }
+
+  function nextUnansweredFunction(categoryId, tier) {
+    const { tasks } = cellProgress(categoryId, tier);
+    return campaign.functions.find(fid => !(fid in tasks)) || null;
   }
 
   function renderHead() {
     const head = document.getElementById("board-head");
+    head.innerHTML = "";
     const row = document.createElement("tr");
-    campaign.categories.forEach(catId => {
-      const fn = functions[catId];
+    campaign.categories.forEach(cat => {
       const th = document.createElement("th");
-      th.innerHTML = fn.label + '<span class="model-name">' + fn.model + "</span>";
+      th.innerHTML = cat.icon + " " + cat.label +
+        '<span class="model-name">' + cat.hunt_type + " (" + cat.mitre + ")</span>";
       row.appendChild(th);
     });
     head.appendChild(row);
@@ -47,19 +68,25 @@
     for (let tierIdx = 0; tierIdx < campaign.points.length; tierIdx++) {
       const tier = tierIdx + 1;
       const row = document.createElement("tr");
-      campaign.categories.forEach(catId => {
+      campaign.categories.forEach(cat => {
         const td = document.createElement("td");
         const btn = document.createElement("button");
         btn.className = "cell-btn";
-        const key = cellKey(catId, tier);
-        const answered = state.answered[key];
-        if (answered) {
+        const points = cellPoints(cat, tierIdx);
+        const { tasks, answeredCount } = cellProgress(cat.id, tier);
+        const total = campaign.functions.length;
+
+        if (answeredCount === total) {
+          const subPoints = Math.round(points / total);
+          const earned = campaign.functions.reduce(
+            (sum, fid) => sum + (tasks[fid].correct ? subPoints : 0), 0
+          );
           btn.classList.add("used");
-          btn.textContent = answered.correct ? "✓" : "—";
+          btn.textContent = "✓ $" + earned;
           btn.disabled = true;
         } else {
-          btn.textContent = "$" + campaign.points[tierIdx];
-          btn.addEventListener("click", () => openModal(catId, tier));
+          btn.textContent = "$" + points + (answeredCount > 0 ? " (" + answeredCount + "/" + total + ")" : "");
+          btn.addEventListener("click", () => openModal(cat.id, tier));
         }
         td.appendChild(btn);
         row.appendChild(td);
@@ -86,16 +113,27 @@
     renderTeams();
   }
 
-  let activeCell = null;
+  function openModal(categoryId, tier) {
+    const functionId = nextUnansweredFunction(categoryId, tier);
+    if (!functionId) return;
 
-  function openModal(catId, tier) {
-    const cell = findCell(catId, tier);
-    const fn = functions[catId];
-    activeCell = { catId, tier, points: campaign.points[tier - 1] };
+    const category = findCategory(categoryId);
+    const cell = findCell(categoryId, tier);
+    const task = cell.tasks[functionId];
+    const fn = functions[functionId];
+    const tierIdx = tier - 1;
+    const total = campaign.functions.length;
+    const subPoints = Math.round(cellPoints(category, tierIdx) / total);
+    const stepIdx = campaign.functions.indexOf(functionId);
 
-    document.getElementById("modal-category").textContent = fn.label;
-    document.getElementById("modal-points").textContent = "$" + activeCell.points;
-    document.getElementById("modal-clue").textContent = cell.clue;
+    activeCell = { categoryId, tier, functionId, subPoints };
+
+    document.getElementById("modal-category").textContent =
+      category.icon + " " + category.label + " — " + category.hunt_type + " (" + category.mitre + ")";
+    document.getElementById("modal-points").textContent = "$" + subPoints;
+    document.getElementById("modal-progress").textContent =
+      "Task " + (stepIdx + 1) + " of " + total + " — " + fn.label + " (" + fn.model + ")";
+    document.getElementById("modal-clue").textContent = task.clue;
 
     const answerEl = document.getElementById("modal-answer");
     const levelEl = document.getElementById("modal-level");
@@ -103,8 +141,8 @@
     answerEl.hidden = true;
     levelEl.hidden = true;
     gradingEl.hidden = true;
-    answerEl.textContent = cell.answer;
-    levelEl.textContent = "Maturity level: " + fn.tier_to_level[tier - 1];
+    answerEl.textContent = task.answer;
+    levelEl.textContent = "Maturity level: " + fn.tier_to_level[tierIdx];
 
     const teamSelect = document.getElementById("grading-team");
     teamSelect.innerHTML = "";
@@ -131,33 +169,44 @@
 
   function grade(correct) {
     if (!activeCell) return;
-    const key = cellKey(activeCell.catId, activeCell.tier);
-    state.answered[key] = { correct: correct, tier: activeCell.tier };
+    const { categoryId, tier, functionId, subPoints } = activeCell;
+    const key = cellKey(categoryId, tier);
+    if (!state.answered[key]) state.answered[key] = { tasks: {} };
+    state.answered[key].tasks[functionId] = { correct: correct };
 
     if (correct) {
       const teamSelect = document.getElementById("grading-team");
       const teamIdx = teamSelect.value;
       if (teamIdx !== "" && state.teams[teamIdx]) {
-        state.teams[teamIdx].score += activeCell.points;
+        state.teams[teamIdx].score += subPoints;
       }
     }
 
     saveState();
     renderTeams();
     renderBody();
-    closeModal();
+
+    const next = nextUnansweredFunction(categoryId, tier);
+    if (next) {
+      openModal(categoryId, tier);
+    } else {
+      closeModal();
+    }
   }
 
   function showSummary() {
     const out = document.getElementById("summary-output");
     out.innerHTML = "";
-    campaign.categories.forEach(catId => {
-      const fn = functions[catId];
+    campaign.functions.forEach(functionId => {
+      const fn = functions[functionId];
       let highestCorrectTier = 0;
-      for (let tier = 1; tier <= campaign.points.length; tier++) {
-        const a = state.answered[cellKey(catId, tier)];
-        if (a && a.correct) highestCorrectTier = tier;
-      }
+      campaign.categories.forEach(cat => {
+        for (let tier = 1; tier <= campaign.points.length; tier++) {
+          const entry = state.answered[cellKey(cat.id, tier)];
+          const task = entry && entry.tasks[functionId];
+          if (task && task.correct && tier > highestCorrectTier) highestCorrectTier = tier;
+        }
+      });
       const levelLabel = highestCorrectTier > 0
         ? fn.tier_to_level[highestCorrectTier - 1]
         : "Not yet assessed";
