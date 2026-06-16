@@ -21,7 +21,7 @@ models — not an invented scoring scheme.
 
 | Input | What it determines | Existing repo tie-in |
 |---|---|---|
-| **Known capabilities & service offerings** (SOC-CMM service catalog, MITRE 11 Strategies) | *Which* capabilities are even in scope to quiz on — seeds the foundational/Tier 1-2 clues per function | New — needs a capability/service inventory doc |
+| **Known capabilities & service offerings** (SOC-CMM service catalog, **MITRE INFORM**) | *Which* capabilities are even in scope to quiz on — seeds the foundational/Tier 1-2 clues per function | New — needs a capability/service inventory doc |
 | **Priority Intelligence Requirements (PIRs)** | *Which* threats/techniques/domains appear on a given campaign's board, keeping the game aligned to leadership's stated intel priorities | Maps to the existing `class-1/2/3` campaign concept and hunt-type selection |
 | **Threat landscape analysis** | Drives the *advanced/innovative* Tier 3-4 clues (emerging TTPs) and which domains carry higher risk multipliers | Maps to the existing env/privilege multiplier mechanic already in `jeopardy-matrix.md` |
 
@@ -44,13 +44,34 @@ models have 4-5 levels already.
 | 5 | **Digital Forensics** (artifact collection & analysis) | **Digital Forensic Readiness & Maturity Model (DFR&MM)**, grounded in **ISO/IEC 27043** | 5 levels, Ad hoc → Optimized | Academic / ISO |
 | 6 | **Incident Response** (automation & process) | **SIM3** | 44 parameters across Organization / Human / Tools / Process, each 0-4 | Open CSIRT Foundation / FIRST |
 | 7 | **Security Engineering** (controls + architecture reassessment) | **OWASP SAMM v2** | 0-3 per practice across Governance / Design / Implementation / Verification / Operations | OWASP |
-| ⮑ | **Overall SOC roll-up** | **SOC-CMM** | 0-5 across Business / People / Process / Technology / Services | Rob van Os |
+| ⮑ | **Overall SOC roll-up — service/process maturity** | **SOC-CMM** | 0-5 across Business / People / Process / Technology / Services | Rob van Os, soc-cmm.com |
+| ⮑ | **Overall SOC roll-up — threat-informed maturity** | **MITRE INFORM** | Weighted dimensions/components across the 3 Dimensions of Threat-Informed Defense, each with a least→most threat-informed maturity spectrum | MITRE Center for Threat-Informed Defense, v2.0 (Jan 2026) |
 
-**Note on "MITRE Inform":** no MITRE product by that name exists. I'm treating this as a
-reference to MITRE's **ATT&CK** (technique grounding, already used in the existing matrix),
-**11 Strategies of a World-Class Cybersecurity Operations Center** (capability/service
-catalog source), and optionally **D3FEND** (control-mapping for the Security Engineering
-category). Flag this assumption if you meant something else.
+**Correction — "MITRE Inform" is real.** Confirmed at
+[center-for-threat-informed-defense.github.io/inform](https://center-for-threat-informed-defense.github.io/inform/)
+and [ctid.mitre.org/inform](https://ctid.mitre.org/inform): **MITRE INFORM** is CTID's
+Threat-Informed Defense maturity model (v2.0, updated January 2026 after two years of
+operational use). It scores an organization across 3 Dimensions of Threat-Informed Defense,
+each broken into technical components, each component scored on a least-to-most
+threat-informed maturity spectrum. This sits alongside SOC-CMM as a second overall-rollup
+anchor: SOC-CMM measures service/process maturity, INFORM measures how well those services
+are actually *driven by adversary intelligence* — which maps directly onto the "known
+capabilities & service offerings" content input in Section 2, and onto the CTI/Threat
+Hunting/Detection Engineering columns specifically (those are the functions INFORM most
+directly assesses).
+
+### Supplementary content-source frameworks
+
+These aren't maturity models, but they're real, citable sources for writing concrete
+clue/answer content once a tier/level is chosen for a given cell:
+
+| Function | Source | What it provides |
+|---|---|---|
+| Detection Engineering | **MITRE CAR** (Cyber Analytics Repository) | Concrete, ATT&CK-mapped analytics with documented data sources/sensors — good source for "what does a Tier-3 detection actually look like" clues |
+| Threat Hunting | **Threat Hunter Playbook** + **OSSEM** | A documented hunt lifecycle and a data-source/field dictionary — good source for the data-baselining and hypothesis-structure clues HMM Tier 2-3 calls for |
+| Incident Response | **RE&CT / ATC-React** | A knowledge base of actionable Response Actions/Playbooks organized by response stage, explicitly built to support IR process maturity assessment — pairs with SIM3 (SIM3 scores the *program*, RE&CT supplies the *runbook content* for IR clues) |
+| Engagement | **MITRE Engage** | Deception/denial/adversary-engagement framework — secondary source if a future board wants a deception-specific cell, distinct from the SCYTHE Purple Team axis used for the primary Engagement column |
+| Security Engineering | **D3FEND** | Defensive-technique ontology — useful for control-mapping clues (which D3FEND technique implements a given SAMM practice) |
 
 ---
 
@@ -167,8 +188,8 @@ No backend, no build step required — keeps GH Pages deployment trivial.
 ## 8. Content authoring workflow
 
 1. Maintain a short **capability/service inventory** doc (new) listing what the SOC currently
-   does, mapped to SOC-CMM service-domain aspects and the relevant MITRE 11 Strategy — this
-   seeds which Tier 1-2 clues are even writable per function.
+   does, mapped to SOC-CMM service-domain aspects and the relevant MITRE INFORM component —
+   this seeds which Tier 1-2 clues are even writable per function.
 2. Maintain a **PIR list** (new, short doc) — drives which ATT&CK techniques/domains get
    selected into a given campaign class's board.
 3. Pull from **threat landscape analysis** (existing case-study references already embedded
@@ -206,6 +227,13 @@ No backend, no build step required — keeps GH Pages deployment trivial.
 
 ## Open assumptions to confirm
 
-- "MITRE Inform" interpreted as ATT&CK + 11 Strategies (+ D3FEND) — correct me if you meant a different MITRE resource.
 - Vanilla HTML/CSS/JS (no framework, no build step) chosen for fastest, dependency-free GitHub Pages deployment — flag if you'd prefer a framework (e.g., for richer UI) instead.
 - DFIR has no single dominant industry CMM (unlike the other 6 functions); DFR&MM/ISO 27043 was the best-supported substitute found in research — open to swapping if you know of a model you'd rather standardize on.
+
+## Resolved
+
+- ~~"MITRE Inform" interpreted as ATT&CK + 11 Strategies~~ — corrected: **MITRE INFORM** is a
+  real, current Threat-Informed Defense maturity model from CTID (v2.0, Jan 2026). Now used as
+  the second overall-rollup anchor alongside SOC-CMM (Section 3). MITRE CAR, Threat Hunter
+  Playbook, OSSEM, RE&CT/ATC-React, MITRE Engage, and D3FEND were also incorporated as
+  supplementary content sources for specific functions.
